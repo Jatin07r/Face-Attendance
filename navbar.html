@@ -43,7 +43,7 @@
 </head>
 
 <body class="bg-light">
-  <nav class="navbar sticky-top navbar-expand-lg px-4">
+  <nav class="navbar sticky-top navbar-expand-lg px-4 py-0">
     <div class="container pt-3">
       <div class="navbar-brand">
         <h4 class="text-primary fw-bolder">FaceMark</h4>
@@ -56,19 +56,21 @@
       <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Admin</a>
+            <a class="nav-link">Admin</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Student</a>
+            <a class="nav-link">Student</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <script>
+
+
     window.addEventListener("scroll", function () {
         let navbar = document.querySelector(".navbar");
         if (window.scrollY > 10) {
