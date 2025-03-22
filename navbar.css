@@ -2,13 +2,8 @@
     transition: all 0.1s ease;
   }
 
-  .navbar-transparent {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
   .navbar-blur {
-    transform: translateY(-.5rem);
-    background: rgba(255, 255, 255, 1);
+    transform: translateY(-1rem);
     backdrop-filter: blur(10px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
@@ -29,8 +24,12 @@
     font-weight: bold;
   }
 
-.btn:hover{
-    transform: translateY(-.2rem);
-    transition: all 0.1s ease;
-    background: #dee7f9;
+@media only screen and (max-width:576px) {
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
 }

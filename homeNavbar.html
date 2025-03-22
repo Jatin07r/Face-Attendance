@@ -10,19 +10,19 @@
   <title>Navbar</title>
 </head>
 
-<body class="bg-light">
-  <nav class="navbar fixed-top navbar-expand-lg px-4 py-0">
+<body>
+  <nav class="navbar sticky-top navbar-expand-lg bg-light px-4 py-0">
     <div class="container pt-3">
       <div class="navbar-brand">
         <h4 class="text-primary fw-bolder">FaceMark</h4>
       </div>
-      <button class="navbar-toggler active" type="button" data-bs-toggle="collapse" aria-pressed="true"
+      <button class="navbar-toggler mb-3" type="button" data-bs-toggle="collapse" aria-pressed="true"
         data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
         aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+      <div class="collapse navbar-collapse bg-light" id="navbarScroll">
+        <ul class="navbar-nav ms-auto my-2 my-lg-0 bg-light">
           <li class="nav-item">
             <a class="nav-link">Home</a>
           </li>
@@ -36,9 +36,8 @@
       </div>
     </div>
   </nav>
+  
   <script>
-
-
     window.addEventListener("scroll", function () {
         let navbar = document.querySelector(".navbar");
         if (window.scrollY > 10) {
