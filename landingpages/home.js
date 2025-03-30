@@ -23,26 +23,26 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (updateURL) {
                     history.pushState({ page: url }, "", `?page=${url}`);
                 }
-                    ScrollReveal().reveal('.animate', {   
-                        duration: 500,
-                        origin: "bottom",
-                        distance: "50px",
-                        delay: 100,
-                        easing: "ease-in-out",
-                        viewFactor: 0.2,
-                        reset: true
+                ScrollReveal().reveal('.animate', {
+                    duration: 500,
+                    origin: "bottom",
+                    distance: "50px",
+                    delay: 100,
+                    easing: "ease-in-out",
+                    viewFactor: 0.2,
+                    reset: true
                 });
             })
             .catch(error => {
                 content.innerHTML = "<h2>404 - Page Not Found</h2>";
                 console.error("Fetch error:", error);
             });
-    } 
-    
+    }
+
     //Load the initial page
     loadContent("homePage.html");
     document.querySelector(".nav-link").classList.add("active");
-    document.body.classList.add("bg-light");    
+    document.body.classList.add("bg-light");
 
     // Event listener for navigation clicks
     document.querySelectorAll(".nav-link").forEach(link => {
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault();
             document.querySelectorAll(".nav-link").forEach(nav => nav.classList.remove("active"));
             const page = event.target.getAttribute("href");
-            loadContent(page);  
+            loadContent(page);
             link.classList.add("active");
         });
     });

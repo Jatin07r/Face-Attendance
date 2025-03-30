@@ -11,7 +11,38 @@
 <body>
     <!-- Attendance record view section -->
     <div class="container-fluid">
-        <h3 class="mb-3">Attendance record according the current month & date:</h3>
+        <h3 class="animate mb-3">Attendance record according the current month:</h3>
+        <button class="btn btn-outline-secondary px-md-4 mb-1" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseFilter" aria-expanded="false" aria-controls="collapseFilter">
+            Filter Attendance Records
+        </button>
+
+        <form class="collapse border p-2 w-100 " id="collapseFilter">
+            <div class="mb-3">
+                <label for="studentID" class="form-label">Student ID :</label>
+                <input type="text" class="form-control" id="studentID" placeholder="Enter student id">
+            </div>
+            <div class="mb-3">
+                <label for="classSemester" class="form-label">Class/Semester :</label>
+                <input type="text" class="form-control" id="classSemester" placeholder="Enter class/semester">
+            </div>
+            <div class="mb-3">
+                <label for="subjectName" class="form-label">Subject Name :</label>
+                <input type="text" class="form-control" id="subjectName" placeholder="Enter subject name">
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status :</label>
+                <select class="form-select" id="status">
+                    <option selected>All</option>
+                    <option value="1">Present</option>
+                    <option value="2">Absent</option>
+                </select>
+            </div>
+            <input class="btn btn-outline-secondary" type="reset" value="Reset">
+            <input class="btn btn-outline-secondary" type="button" value="Filter">
+        </form>
+    </div>
+    <div class="container-fluid mt-3">
         <table class="animate table table-sm table-striped table-light">
             <thead>
                 <tr>
@@ -24,22 +55,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">ID</th>
-                    <td>Name</td>
-                    <td>Class/Semester</td>
-                    <td>Subject</td>
-                    <td>Date/Time</td>
-                    <td>Status</td>
-                </tr>
-                <tr>
-                    <th scope="row">ID</th>
-                    <td>Name</td>
-                    <td>Class/Semester</td>
-                    <td>Subject</td>
-                    <td>Date/Time</td>
-                    <td>Status</td>
-                </tr>
             </tbody>
         </table>
     </div>

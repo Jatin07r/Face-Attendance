@@ -1,0 +1,24 @@
+{
+  "name": "facemark",
+  "version": "1.0.0",
+  "description": "Attendance System via Face Recognition",
+  "main": "homeNavbar.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jatin07r/Face-Attendance.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jatin07r/Face-Attendance/issues"
+  },
+  "homepage": "https://github.com/Jatin07r/Face-Attendance#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.14.0"
+  }
+}
