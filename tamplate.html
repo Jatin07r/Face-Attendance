@@ -8,57 +8,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-<!-- pie chart
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Pie Chart</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-
-    <canvas id="myPieChart"></canvas>
-
-    <script>
-        // Get the canvas element
-        const ctx = document.getElementById('myPieChart').getContext('2d');
-
-        // Initial data
-        let dataValues = [30, 50, 20];
-
-        // Create the pie chart
-        const myPieChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Present', 'Absent', 'Late'],
-                datasets: [{
-                    data: dataValues,
-                    backgroundColor: ['#4CAF50', '#F44336', '#FF9800']
-                }]
-            }
-        });
-
-        // Function to update chart dynamically
-        function updateChart(newData) {
-            myPieChart.data.datasets[0].data = newData;
-            myPieChart.update();
-        }
-
-        // Simulating real-time update after 3 seconds
-        setTimeout(() => {
-            let newData = [40, 40, 20]; // Example new data
-            updateChart(newData);
-        }, 3000);
-    </script>
-
-</body>
-</html>
--->
