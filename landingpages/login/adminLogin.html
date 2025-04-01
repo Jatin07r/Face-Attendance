@@ -20,20 +20,20 @@
 
     <!-- Login section -->
     <div class="card shadow-lg p-4 mx-auto bg-secondary border bg-opacity-10" style="max-width: 450px;">
-      <form id="adminLogin">
+      <form id="login">
         <div class="mb-3">
           <label class="form-label">Email ID</label>
-          <input type="email" id="email" class="form-control" placeholder="sample: jatin@facemark.com">
+          <input type="email" id="email" class="form-control" placeholder="sample: jatin01@facemark.com" required>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Password</label>
           <div class="input-group">
-            <input type="password" id="password" class="form-control" placeholder="sample: kuchbhi01">
+            <input type="password" id="password" class="form-control" placeholder="sample: kuch_bhi01" required>
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary w-100 bg-primary bg-opacity-75" value="login">
+        <button type="submit" class="btn btn-primary w-100 bg-primary">
           🔑 Sign in
         </button>
       </form>
@@ -43,28 +43,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/scrollreveal"></script>
 
-  <script>
-     document.getElementById('adminLogin').addEventListener('submit', async function(event) {
-            event.preventDefault();
-
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const response = await fetch('http://localhost:3000/auth/login', {
-                method: 'POST',
-                body: JSON.stringify({ email, password })
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                alert('Login Successful');
-                window.location.href = 'adminpages/adminNavbar.html';
-            } else {
-                alert(result.error);
-            }
-        });
-  </script>
+  <script src="adminLogin.js"></script>
 </body>
 
 </html>

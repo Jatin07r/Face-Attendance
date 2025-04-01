@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     delay: 100,
                     easing: "ease-in-out",
                     viewFactor: 0.2,
-                    reset: true
+                    reset: false
                 });
             })
             .catch(error => {
