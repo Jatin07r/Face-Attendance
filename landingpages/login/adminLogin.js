@@ -14,7 +14,6 @@ document.querySelector('#login').addEventListener('submit', async function(event
 
     if (response.ok) {
         alert('login succesfull');
-        window.location.href = "adminpages/adminNavbar.html";
     } else {
         alert(result.error);
     }
