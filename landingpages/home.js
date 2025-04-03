@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     //Load the initial page
-    loadContent("homePage.html");
+    loadContent("dashboard.html");
     document.querySelector(".nav-link").classList.add("active");
     document.body.classList.add("bg-light");
 
@@ -91,5 +91,13 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             loadContent("homePage.html", false);
         }
+    });
+
+    //Logout & Session destroy
+    document.querySelector('#logout').addEventListener('click', () => {
+        sessionStorage.removeItem('loggedInUser');
+        sessionStorage.removeItem('userType');
+        alert('Logged out successfully');
+        window.location.href = "/login.html";
     });
 }); 
