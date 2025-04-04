@@ -1,6 +1,17 @@
 const express = require('express');
-const db = require('./database');
+const mysql = require('mysql2');
+const config = require('./dbConfig');
 const router = express.Router();
+
+//Database Connection
+const db = mysql.createConnection(config);
+db.connect(err => {
+    if (err) {
+        console.error('Database connection failed: ' + err.stack);
+        return;
+    }
+    console.log('Connected to MySQL database');
+});
 
 //Admin  Login Route
 router.post('/alogin', (req, res) => {

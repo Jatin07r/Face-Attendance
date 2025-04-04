@@ -97,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('#logout').addEventListener('click', () => {
         sessionStorage.removeItem('loggedInUser');
         sessionStorage.removeItem('userType');
-        alert('Logged out successfully');
-        window.location.href = "/login.html";
+        window.location.href = "/homeNavbar.html";
     });
 }); 
