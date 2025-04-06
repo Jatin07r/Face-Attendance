@@ -18,24 +18,19 @@
                     <div class="card-body p-1 text-center">
                         <img src="/landingpages/defaultpfp.png"
                             class="card-img-top mb-2 w-50 object-fit-cover rounded-circle" alt="image">
-                        <h5 class="card-title">Name</h5>
-                        <span id="name"></span>
-                        <p class="card-text">Email ID</p>
-                        <span id="email_id"></span>
+                        <h5 id="admin-name" class="card-title">Name</h5>
+                        <p id="email" class="card-text">Email ID</p>
                     </div>
                     <div class="card-body p-1">
                         <ul class="list-group list-group-flush border-top">
                             <li class="list-group-item">
-                                <h6>Classes:</h6>
-                                <span id="classes"></span>
+                                <h6>Classes:  <span id="classes" class="fw-normal"></span></h6>
                             </li>
                             <li class="list-group-item">
-                                <h6>Total Students:</h6>
-                                <span id="total_students"></span>
+                                <h6>Total Students:  <span id="students" class="fw-normal"></span></h6>
                             </li>
                             <li class="list-group-item">
-                                <h6>Contact:</h6>
-                                <span id="contact"></span>
+                                <h6>Contact:  <span id="contact" class="fw-normal"></span></h6>
                             </li>
                         </ul>
                     </div>
@@ -44,20 +39,7 @@
             
             <!-- Class section -->
             <div class="col-12 col-md-9">
-                <div class="row justify-content-around">
-                    <div class="col-5 col-md-3 p-2 m-2 rounded bg-white shadow-sm">
-                        <h6 id="class">Class-1</h6>
-                        <p id="students">Students:</p>
-                    </div>
-                    <div class="col-5 col-md-3 p-2 m-2 rounded bg-white shadow-sm">
-                        <h6 id="class">Class-2</h6>
-                        <p id="students">Students:</p>
-                    </div>
-                    <div class="col-5 col-md-3 p-2 m-2 rounded bg-white shadow-sm">
-                        <h6 id="class">Class-3</h6>
-                        <p id="students">Students:</p>
-                    </div>
-                </div>
+                <div id="class-student" class="row justify-content-around"></div>
             </div>
 
             <!-- Attendance Chart section-->

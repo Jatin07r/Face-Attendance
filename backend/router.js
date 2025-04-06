@@ -3,9 +3,6 @@ const loginRoute = require('./verifyLogin');
 const fetchRoute = require('./fetchData');
 const viewRoute = require('./viewData');
 
-server.use(cors());
-server.use(express.json());
-
 // Login check
 server.use('/', loginRoute);
 

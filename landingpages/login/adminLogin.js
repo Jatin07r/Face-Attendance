@@ -13,9 +13,8 @@ document.querySelector('#login').addEventListener('submit', async function (even
 
         const result = await response.json();
 
-        if (response.ok) {
-            sessionStorage.setItem('loggedInUser', email);
-            sessionStorage.setItem('userType', 'admin');
+        if (result.success)  {
+            setCookie("adminId", result.admin); 
             window.location.href = "/adminpages/adminNavbar.html";
         } else {
             alert(result.error || 'Login failed. Please try again.');

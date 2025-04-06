@@ -1,7 +1,9 @@
 const express = require('express');
 const mysql = require('mysql2');
-const router = express.Router();
 const config = require('./dbConfig');
+const router = express.Router();
+// import getCookie from './cookieHandler';
+
 
 //Database Connection
 const db = mysql.createConnection(config);
@@ -15,19 +17,24 @@ db.connect(err => {
 
 // GET route to fetch admin data
 router.get('/adminFetchData', (req, res) => {
-    const query = 'SELECT * FROM admin WHERE email = ?';
-    const condition = ['jatin01@facemark.com'];
-    db.query(query, condition, (err, results) => {
+    const userId = getCookie("adminId");
+    const query = 'SELECT * FROM admin INNER JOIN class_table ON admin.admin_id = class_table.admin_id WHERE admin.admin_id = ?';
+    const condition = [userId];
+        db.query(query, condition, (err, results) => {
         if (err) {
             console.error('Error fetching admin data:', err);
             return res.status(500).json({ error: 'Database query failed' });
         }
         const copy = results.map(admin => {
-            const { password, ...rest } = admin;
+            const { password,class_sem, total_students, ...rest } = admin;
             return rest;
-        });
+    });
+    const copy2 = results.map(admin => {
+        const { class_sem, total_students, ...rest } = admin;
+        return({ class_sem, total_students}) ;
+});
         
-        res.status(200).json(copy);
+        res.status(200).json({copy,copy2});
     });
 });
 
@@ -41,7 +48,7 @@ router.get('/studentFetchData', (req, res) => {
             return res.status(500).json({ error: 'Database query failed' });
         }
         const copy = results.map(student => {
-            const { password, ...rest } = student;
+            const { password,student_fid, ...rest } = student;
             return rest;
         });
         

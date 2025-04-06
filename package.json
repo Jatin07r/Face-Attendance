@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "scripts": {
-    "start": "node backend/server.js",
-    "facemark": "nodemon backend/server.js"
+    "start": "node backend/router.js",
+    "facemark": "nodemon backend/router.js"
   },
   "repository": {
     "type": "git",
@@ -21,9 +21,12 @@
   },
   "homepage": "https://github.com/Jatin07r/Face-Attendance#readme",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "mysql2": "^3.14.0"
+    "express-session": "^1.18.1",
+    "mysql2": "^3.14.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
