@@ -17,7 +17,7 @@ db.connect(err => {
 
 // GET route to fetch admin data
 router.get('/adminFetchData', (req, res) => {
-    const userId = getCookie("adminId");
+    const userId = req.session.userId;
     const query = 'SELECT * FROM admin INNER JOIN class_table ON admin.admin_id = class_table.admin_id WHERE admin.admin_id = ?';
     const condition = [userId];
         db.query(query, condition, (err, results) => {

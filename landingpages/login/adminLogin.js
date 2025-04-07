@@ -13,8 +13,7 @@ document.querySelector('#login').addEventListener('submit', async function (even
 
         const result = await response.json();
 
-        if (result.success)  {
-            setCookie("adminId", result.admin); 
+        if (result.success)  { 
             window.location.href = "/adminpages/adminNavbar.html";
         } else {
             alert(result.error || 'Login failed. Please try again.');

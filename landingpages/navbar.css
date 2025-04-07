@@ -36,3 +36,22 @@
     z-index: 1000;
   }
 }
+
+/* Scrollbar section*/
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(164, 164, 164, 0.7);
+  border-radius: 50px;
+  transition: 0.3s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 100, 100, 0.7);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

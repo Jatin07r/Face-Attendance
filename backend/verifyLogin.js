@@ -29,8 +29,9 @@ router.post('/alogin', (req, res) => {
         const admin = results[0];
         if (admin.password!== password) {
             return res.status(401).json({ error: 'Invalid password' });
-        }            
-        res.json({admin: admin.admin_id, success:true, message: 'Login successful' });
+        }
+        req.session.userId = admin.admin_id;
+        res.json({success:true, message: 'Login successful' });
     });
 });
 
