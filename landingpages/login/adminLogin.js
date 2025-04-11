@@ -8,12 +8,13 @@ document.querySelector('#login').addEventListener('submit', async function (even
         const response = await fetch('http://localhost:3000/alogin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password }),
+            credentials: 'include'
         });
 
         const result = await response.json();
 
-        if (result.success)  { 
+        if (result.success) {
             window.location.href = "/adminpages/adminNavbar.html";
         } else {
             alert(result.error || 'Login failed. Please try again.');

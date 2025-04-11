@@ -74,15 +74,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Handle login buttons
     document.addEventListener("click", event => {
-      navLinks.forEach(nav => nav.classList.remove("active"));
+      const hp = document.getElementById("hp");
       if (event.target.id === "adminLogin") {
           event.preventDefault();
+          hp.classList.remove("active")
           const al = document.querySelector("#al");
           al.classList.add("active");
           loadContent("login/adminLogin.html");
       }
       if (event.target.id === "studentLogin") {
           event.preventDefault();
+          hp.classList.remove("active")
           const sl = document.querySelector("#sl");
           sl.classList.add("active");
           loadContent("login/studentLogin.html");
@@ -100,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (event.target.id === "loginButtons") {
           event.preventDefault();
-          const hp = document.getElementById("hp");
           hp.classList.add("active");
           window.scrollTo({ top: 0, behavior: 'smooth' });
       }

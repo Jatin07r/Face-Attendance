@@ -9,13 +9,13 @@ document.querySelector('#login').addEventListener('submit', async function (even
         const response = await fetch('http://localhost:3000/sidlogin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ student_id, password })
+            body: JSON.stringify({ student_id, password }),
+            credentials: 'include'
         });
 
         const result = await response.json();
 
-        if (response.ok) {
-            sessionStorage.setItem('loggedInUser', student_id);
+        if (result.success) {
             window.location.href = "/studentpages/studentNavbar.html";
         } else {
             alert(result.error || 'Login failed. Please try again.');

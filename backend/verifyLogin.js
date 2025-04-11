@@ -31,7 +31,7 @@ router.post('/alogin', (req, res) => {
             return res.status(401).json({ error: 'Invalid password' });
         }
         req.session.userId = admin.admin_id;
-        res.json({success:true, message: 'Login successful' });
+        res.json({success:true, message: 'Login successful'});
     });
 });
 
@@ -45,7 +45,7 @@ router.post('/sidlogin', (req, res) => {
         }
 
         if (results.length === 0) {
-            return res.status(401).json({ error: 'Invalid student_id' });
+            return res.status(401).json({ error: 'Invalid student id' });
         }
 
         const student = results[0];
@@ -53,7 +53,8 @@ router.post('/sidlogin', (req, res) => {
         if (student.password!== password) {
             return res.status(401).json({ error: 'Invalid password' });
         }            
-        res.json({ message: 'Login successful' });
+        req.session.userId = student_id;
+        res.json({success:true, message: 'Login successful' });
     });
 });
 

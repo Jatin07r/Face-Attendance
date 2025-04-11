@@ -14,36 +14,35 @@ db.connect(err => {
 });
 
 // GET route to fetch admin data
-router.get('/adminViewData', (req, res) => {
-    const query = 'SELECT * FROM admin WHERE email = ?';
-    const condition = ['jatin01@facemark.com'];
-    db.query(query,condition, (err, results) => {
+router.get('/fetchAdminAttendance', (req, res) => {
+    const query = 'SELECT * FROM student INNER JOIN attendance ON student.student_id = attendance.student_id INNER JOIN time_table ON student.student_id = time_table.student_id';
+    db.query(query, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }
-        const copy = results.map(admin => {
-            const { password, ...rest } = admin;
+        const attedanceData = results.map(admin => {
+            const { password, student_fid, ...rest } = admin;
             return rest;
         });
         
-        res.status(200).json(copy);
+        res.status(200).json(attedanceData);
     });
 });
 
 // GET route to fetch student data
-router.get('/studentViewData', (req, res) => {
+router.get('/fetchStudentAttendance', (req, res) => {
     const query = 'SELECT * FROM student INNER JOIN attendance ON student.student_id = attendance.student_id INNER JOIN time_table ON student.student_id = time_table.student_id WHERE student.student_id = ?';
     const condition = ['426801'];
     db.query(query,condition, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }
-        const copy = results.map(student => {
+        const attedanceData = results.map(student => {
             const { password,student_fid, ...rest } = student;
             return rest;
         });
         
-        res.status(200).json(copy);
+        res.status(200).json(attedanceData);
     });
 });
 

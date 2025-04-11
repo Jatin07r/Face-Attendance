@@ -1,10 +1,155 @@
+const studentName = document.querySelector("#student-name");
+const studentId = document.querySelector("#student-id");
+const className = document.querySelector("#class-name");
+const semester = document.querySelector("#semester");
+const contact = document.querySelector("#contact");
+const timeTable = document.querySelector("#time-table");
+const subjectAttendance = document.querySelector("#subject-attendance");
+const allAttendance = document.querySelector("#all-attendance");
+const totalAttendance = document.querySelector("#total-attendance");
+
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost:3000/studentFetchData');
+        const response = await fetch("http://localhost:3000/fetchStudentDashboard", {
+            method: "GET",
+            withCredentials: true
+        });
         const result = await response.json();
+        console.log(result);
+        displayData(result);
     } catch (error) {
         console.error("Error fetching data:", error);
     }
+}
+
+function displayData(data){
+    studentName.textContent = `${data.userData[0].name}`;
+    studentId.textContent = `${data.userData[0].student_id}`;
+    className.textContent = `${data.userData[0].class}`;
+    semester.textContent = `${data.userData[0].semester}`;
+    contact.textContent = `${data.userData[0].contact}`;
+
+    timeTable.innerHTML = "";
+    data.subjectData.forEach(cls => {
+        const card = document.createElement("div");
+        card.className = "class-card col-5 col-md-3 p-2 m-2 rounded bg-white shadow-sm";
+
+        card.innerHTML = `
+            <h6>Subject: <span class="fw-normal">${cls.subject_name}</span></h6>
+            <h6>Class: <span class="fw-normal">${cls.subject_class}</span></h6>
+            <h6>Time: <span class="fw-normal"> ${cls.subject_time}</span></h6>
+        `;
+
+        timeTable.appendChild(card);
+    });
+
+    const labels = data.chartData.subjectwise.map(item => item.subject_name);
+    const presentData = data.chartData.subjectwise.map(item => item.present_percentage);
+    const absentData = data.chartData.subjectwise.map(item => item.absent_percentage);
+    
+    new Chart(subjectAttendance, {
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Present",
+            data: presentData,
+            backgroundColor: "rgba(100, 181, 246, 0.7)",
+            borderColor: "rgba(100, 181, 246, 1)",
+            borderWidth: 2
+          },
+          {
+            label: "Absent",
+            data: absentData,
+            backgroundColor: "rgba(244, 67, 54, 0.7)",
+            borderColor: "rgba(244, 67, 54, 1)",
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            ticks: {
+              stepSize: 25,
+              callback: value => value + "%"
+            },
+            title: {
+              display: true,
+              text: "Percentage (%)"
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: "Subject Name",
+              font: {
+                weight: 'bold'
+              }
+            },
+            ticks: {
+              callback: function(value) {
+                const label = this.getLabelForValue(value);
+                return label.length > 10 ? label.substring(0, 20) + '…' : label;
+              }
+            }
+          }
+        },
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.dataset.label}: ${context.raw}%`;
+              }
+            }
+          }
+        }
+      }
+    });
+      
+      const totalPresent = data.chartData.combined_summary.present_percentage;
+      const totalAbsent = data.chartData.combined_summary.absent_percentage;
+     new Chart(allAttendance, {
+    type: "doughnut",
+    data: {
+      labels: ["Present", "Absent"],
+      datasets: [{
+        data: [totalPresent, totalAbsent],
+        backgroundColor: ["#64b5f6b3", "#f44336b3"],
+        borderColor: ["#64b5f6ff", "#f44336ff"],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: "bottom"
+        },
+        tooltip: {
+          callbacks: {
+            label: (tooltipItem) => tooltipItem.label + ": " + tooltipItem.raw + "%"
+          }
+        }
+      }
+    }
+  });
+
+    const totalAttendanceText = document.createElement("div");
+    totalAttendanceText.className = "p-2 m-2";
+
+    totalAttendanceText.innerHTML = `
+        <h6 class="mb-2">Total Attendance:  <span class="fw-normal">${data.chartData.combined_summary.total_attendance}</span></h6>
+        <h6 class="mb-2">Total Presents:  <span class="fw-normal"> ${data.chartData.combined_summary.present_count}</span></h6>
+        <h6 class="mb-2">Total Absents :  <span class="fw-normal"> ${data.chartData.combined_summary.absent_count}</span></h6>
+ `;
+
+   totalAttendance.appendChild(totalAttendanceText);
 }
 
 window.addEventListener("DOMContentLoaded", fetchData);
