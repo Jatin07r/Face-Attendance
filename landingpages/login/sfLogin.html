@@ -20,7 +20,8 @@
 
     <!-- Login section -->
     <div class="card shadow-lg p-4 mx-auto bg-secondary border bg-opacity-10" style="max-width: 450px;">
-      <form>
+      <p id="database-error" class="d-none">*An database eror occured. Try again later</p>
+      <form id="login">
         <div class="mb-2 text-center">
           <video id="sf" class="border rounded-circle shadow-sm mb-1" autoplay
             style="height: 15rem; width: 15rem;"></video>
@@ -28,7 +29,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary w-100 bg-primary" value="login">
-          Verify Face ID
+          <i class="bi bi-person-circle"></i> Verify Face ID
         </button>
       </form>
     </div>

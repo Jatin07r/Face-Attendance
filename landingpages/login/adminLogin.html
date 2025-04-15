@@ -20,17 +20,18 @@
 
     <!-- Login section -->
     <div class="card shadow-lg p-4 mx-auto bg-secondary border bg-opacity-10" style="max-width: 450px;">
+      <p id="database-error" class="d-none">*An database eror occured. Try again later</p>
       <form id="login">
-        <div class="mb-3">
-          <label class="form-label">Email ID</label>
+        <div class="mb-3 form-group">
+          <label for="email" class="form-label">Email ID</label>
           <input type="email" id="email" class="form-control" placeholder="sample: jatin01@facemark.com" required>
+          <p id="invalid-email" class="d-none">*Invalid Email</p>
         </div>
 
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <div class="input-group">
-            <input type="password" id="password" class="form-control" placeholder="sample: kuch_bhi01" required>
-          </div>
+        <div class="mb-3 form-group">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="sample: kuch_bhi01" required>
+          <p id="invalid-password" class="d-none">*Invalid Password</p>
         </div>
 
         <button type="submit" class="btn btn-primary w-100 bg-primary">

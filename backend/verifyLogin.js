@@ -19,18 +19,19 @@ router.post('/alogin', (req, res) => {
 
     db.query('SELECT admin_id,email,password FROM admin WHERE email = ?',[email], (err, results) => {
         if (err) {
-            return res.status(500).json({ error: 'Database error' });
+            return res.status(500).json({success:false, error: 'Database error' });
         }
 
         if (results.length === 0) {
-            return res.status(401).json({ error: 'Invalid email' });
+            return res.status(401).json({success:false, error: 'Invalid email' });
         }
 
         const admin = results[0];
         if (admin.password!== password) {
-            return res.status(401).json({ error: 'Invalid password' });
+            return res.status(401).json({success:false, error: 'Invalid password' });
         }
-        req.session.userId = admin.admin_id;
+        
+        // req.session.userId = admin.admin_id;
         res.json({success:true, message: 'Login successful'});
     });
 });
@@ -41,19 +42,19 @@ router.post('/sidlogin', (req, res) => {
 
     db.query('SELECT student_id,password FROM student WHERE student_id = ?',[student_id], (err, results) => {
         if (err) {
-            return res.status(500).json({ error: 'Database error' });
+            return res.status(500).json({success:false, error: 'Database error' });
         }
 
         if (results.length === 0) {
-            return res.status(401).json({ error: 'Invalid student id' });
+            return res.status(401).json({success:false, error: 'Invalid student id' });
         }
 
         const student = results[0];
 
         if (student.password!== password) {
-            return res.status(401).json({ error: 'Invalid password' });
+            return res.status(401).json({success:false, error: 'Invalid password' });
         }            
-        req.session.userId = student_id;
+        // req.session.userId = student_id;
         res.json({success:true, message: 'Login successful' });
     });
 });

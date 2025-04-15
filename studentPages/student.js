@@ -37,7 +37,7 @@ function displayData(data){
         card.innerHTML = `
             <h6>Subject: <span class="fw-normal">${cls.subject_name}</span></h6>
             <h6>Class: <span class="fw-normal">${cls.subject_class}</span></h6>
-            <h6>Time: <span class="fw-normal"> ${cls.subject_time}</span></h6>
+            <h6>Time: <span class="fw-normal"> ${cls.date_time}</span></h6>
         `;
 
         timeTable.appendChild(card);
@@ -93,7 +93,7 @@ function displayData(data){
             ticks: {
               callback: function(value) {
                 const label = this.getLabelForValue(value);
-                return label.length > 10 ? label.substring(0, 20) + '…' : label;
+                return label.length > 10 ? label.substring(0, 10) + '...' : label;
               }
             }
           }
@@ -141,7 +141,7 @@ function displayData(data){
   });
 
     const totalAttendanceText = document.createElement("div");
-    totalAttendanceText.className = "p-2 m-2";
+    totalAttendanceText.className = "col-md-4 p-2 m-2";
 
     totalAttendanceText.innerHTML = `
         <h6 class="mb-2">Total Attendance:  <span class="fw-normal">${data.chartData.combined_summary.total_attendance}</span></h6>

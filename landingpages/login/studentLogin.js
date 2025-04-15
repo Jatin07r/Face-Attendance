@@ -1,7 +1,11 @@
-document.querySelector('#login').addEventListener('submit', async function (event) {
+const login = document.querySelector('#login');
+const invalidStudentId = document.querySelector('#invalid-sid');
+const invalidPassword = document.querySelector('#invalid-password');
+const databaseError = document.querySelector('#database-error');
+
+login.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    // const student_face_id = document.querySelector('#sf').value;
     const student_id = document.querySelector('#sid').value.trim();
     const password = document.querySelector('#password').value.trim();
 
@@ -15,10 +19,22 @@ document.querySelector('#login').addEventListener('submit', async function (even
 
         const result = await response.json();
 
-        if (result.success) {
-            window.location.href = "/studentpages/studentNavbar.html";
-        } else {
-            alert(result.error || 'Login failed. Please try again.');
+        if (!result.success && result.error === 'Invalid student id') {
+            invalidStudentId.className = 'd-block text-primary';
+            invalidPassword.className = 'd-none';
+        } 
+        else if(!result.success && result.error === 'Invalid password') {
+            invalidStudentId.className = 'd-none';
+            invalidPassword.className = 'd-block text-primary';
+        } 
+        else if(!result.success && result.error === 'Database error') {
+            invalidStudentId.className = 'd-none';
+            invalidPassword.className = 'd-none';
+            databaseError.className = 'd-block text-center text-primary';
+        } 
+        else if(result.success) {     
+        sessionStorage.setItem("loginSuccess", "true");
+        window.location.href = '/studentpages/studentNavbar.html';
         }
     } catch (error) {
         alert('An error occurred. Please check your connection and try again.');

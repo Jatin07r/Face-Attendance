@@ -20,17 +20,18 @@
 
     <!-- Login section -->
     <div class="card shadow-lg p-4 mx-auto bg-secondary border bg-opacity-10" style="max-width: 450px;">
+      <p id="database-error" class="d-none">*An database eror occured. Try again later</p>
       <form id="login">
-        <div class="mb-3">
-          <label class="form-label">Student ID</label>
+        <div class="mb-3 form-group">
+          <label for="sid" class="form-label">Student ID</label>
           <input type="text" id="sid" class="form-control" placeholder="sample: 426801" required>
+          <p id="invalid-sid" class="d-none">*Invalid Student Id</p>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 form-group">
           <label class="form-label">Password</label>
-          <div class="input-group">
-            <input type="password" id="password" class="form-control" placeholder="sample: kuch_bhi01" required>
-          </div>
+          <input type="password" id="password" class="form-control" placeholder="sample: kuch_bhi01" required>
+          <p id="invalid-password" class="d-none">*Invalid Password</p>
         </div>
 
         <button type="submit" class="btn btn-primary w-100 bg-primary" value="login">

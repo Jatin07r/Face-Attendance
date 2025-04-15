@@ -15,7 +15,9 @@ db.connect(err => {
 
 router.get('/fetchStudentDashboard', (req, res) => {
     // const sessionId= req.session.userId;
-    const query = `SELECT * FROM student
+    const query = `SELECT  student.*, time_table.*,
+    DATE_FORMAT(time_table.subject_time, '%h:%i %p') as date_time 
+    FROM student
     INNER JOIN time_table ON time_table.student_id = student.student_id
     WHERE student.student_id = ?`;
     const condition = ['426801'];
@@ -34,12 +36,12 @@ router.get('/fetchStudentDashboard', (req, res) => {
         });
 
         const subjectData = studentResults.map(admin => {
-            const { subject_name, subject_class, subject_time } = admin;
-            return { subject_name, subject_class, subject_time };
+            const { subject_name, subject_class, date_time } = admin;
+            return { subject_name, subject_class, date_time };
         });
 
         const query = `SELECT 
-   '                    subjectwise' AS type,
+                        'subjectwise' AS type,
                         subject_name,
                         COUNT(*) AS total_attendance,
                         FORMAT(COUNT(CASE WHEN status = 'present' THEN 1 END) * 100.0 / COUNT(*), 2) AS present_percentage,
@@ -65,7 +67,7 @@ router.get('/fetchStudentDashboard', (req, res) => {
             `;
         db.query(query, [condition,condition], (err, chartResults) => {
             if (err) {
-                console.error("Error fetching admin data:", err);
+                console.error("Error fetching student data:", err);
                 return res.status(500).json({ error: "Database query failed" });
             }
             const subjectwise = chartResults.filter(row => row.type === 'subjectwise');

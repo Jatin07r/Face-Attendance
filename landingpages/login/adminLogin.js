@@ -1,4 +1,9 @@
-document.querySelector('#login').addEventListener('submit', async function (event) {
+const login = document.querySelector('#login');
+const invalidEmail = document.querySelector('#invalid-email');
+const invalidPassword = document.querySelector('#invalid-password');
+const databaseError = document.querySelector('#database-error');
+
+login.addEventListener('submit', async function (event) {
     event.preventDefault();
 
     const email = document.querySelector('#email').value.trim();
@@ -13,11 +18,23 @@ document.querySelector('#login').addEventListener('submit', async function (even
         });
 
         const result = await response.json();
-
-        if (result.success) {
-            window.location.href = "/adminpages/adminNavbar.html";
-        } else {
-            alert(result.error || 'Login failed. Please try again.');
+            
+        if (!result.success && result.error === 'Invalid email') {
+            invalidEmail.className = 'd-block text-primary';
+            invalidPassword.className = 'd-none';
+        } 
+        else if(!result.success && result.error === 'Invalid password') {
+            invalidEmail.className = 'd-none';
+            invalidPassword.className = 'd-block text-primary';
+        } 
+        else if(!result.success && result.error === 'Database error') {
+            invalidEmail.className = 'd-none';
+            invalidPassword.className = 'd-none';
+            databaseError.className = 'd-block text-center text-primary';
+        } 
+        else if(result.success) {  
+        sessionStorage.setItem("loginSuccess", "true");
+        window.location.href = '/adminpages/adminNavbar.html';
         }
     } catch (error) {
         alert('An error occurred. Please check your connection and try again.');

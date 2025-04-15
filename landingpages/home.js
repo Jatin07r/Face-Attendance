@@ -15,10 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     async function loadContent(url, updateURL = true) {
       try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error("Page not found");
+        if (!response.ok) {window.location.href = "errorpages/404.html";};
 
         const html = await response.text();
         content.innerHTML = html;
+        scriptToLoad(url);
 
         if (updateURL) {
           history.pushState({ page: url }, "", `?page=${url}`);
@@ -35,7 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
       } catch (error) {
-        content.innerHTML = "<h2>404 - Page Not Found</h2>";
+        // window.location.href = "errorpages/500.html";
+        const serverError = await fetch("errorpages/500.html");
+        document.querySelector(".nav-link").classList.remove("active");
+        const serverHtml = await serverError.text();
+        content.innerHTML = serverHtml;        
         console.error("Fetch error:", error);
       }
     }
@@ -45,15 +50,19 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".nav-link").classList.add("active");
     document.body.classList.add("bg-light");
 
-    //Add script tag on login pages
-    function scriptToLoad() {
-      const scriptsLoad = [
-        "login/adminLogin.js",
-        "login/studentLogin.js"
-      ]
+    //Add script tag in login pages
+    function scriptToLoad(url) {
+      const scriptsMap = {
+        "login/adminLogin.html": ["login/adminLogin.js"],
+        "login/sidLogin.html": ["login/studentLogin.js"],
+        "login/sfLogin.html": ["login/studentLogin.js"],
+        "dashboard.html": ["admin.js", "student.js"]
+      }
+      const scriptsLoad = scriptsMap[url] || [];
       scriptsLoad.forEach(src => {
         const script = document.createElement("script");
         script.src = src;
+        script.defer = true;
         document.body.appendChild(script);
       });
     }
@@ -67,14 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const page = link.getAttribute("href");
         if (!page) return;
         loadContent(page);
-        scriptToLoad();
         link.classList.add("active");
       });
     });
 
     //Handle login buttons
     document.addEventListener("click", event => {
-      const hp = document.getElementById("hp");
+      const hp = document.querySelector("#hp");
       if (event.target.id === "adminLogin") {
           event.preventDefault();
           hp.classList.remove("active")
@@ -105,8 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
           hp.classList.add("active");
           window.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      scriptToLoad();
-  });
+    });
 
     // Store back/forward navigation data
     window.addEventListener("popstate", () => {
@@ -126,6 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //Logout
     const logout = document.querySelector('#logout')
     logout.addEventListener('click', () => {
+      sessionStorage.removeItem("loginSuccess");
+      sessionStorage.setItem("logoutSuccess", "true");
       window.location.href = "/landingpages/homeNavbar.html";
     });
   }); 

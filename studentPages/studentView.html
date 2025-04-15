@@ -12,7 +12,7 @@
     <!-- Attendance record view section -->
     <div class="container-fluid">
         <h3 class="animate mb-3">Attendance records according current month & date:</h3>
-        <table class="animate table table-sm table-striped table-light">
+        <table id="attendance-view" class="animate table table-sm table-light  table-hover">
             <thead>
                 <tr>
                     <th scope="col">Student ID</th>
@@ -22,26 +22,12 @@
                     <th scope="col">Status</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">ID</th>
-                    <td>Class/Sem</td>
-                    <td>Subject</td>
-                    <td>Date/Time</td>
-                    <td>Status</td>
-                </tr>
-                <tr>
-                    <th scope="row">ID</th>
-                    <td>Class/Sem</td>
-                    <td>Subject</td>
-                    <td>Date/Time</td>
-                    <td>Status</td>
-                </tr>
-            </tbody>
         </table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
+
+    <script src="studentView.js"></script>
 </body>
 
 </html>
