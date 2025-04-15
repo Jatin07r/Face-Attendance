@@ -34,22 +34,19 @@ function displayData(data) {
     const card = document.createElement("div");
     card.className = "class-card col-5 col-md-3 p-2 m-2 rounded bg-white shadow-sm";
     
-    const matchingItem = data.chartData.classwise.find(item => item.class_sem === cls.class_sem);
-        if (matchingItem.present_percentage < 75) {
-              warning = "*Attendance is below 75%!";
-          } else if (matchingItem.present_percentage <= 90) {
-              warning = "*Attendance is between 75% and 90%.";
-          } else if( matchingItem.present_percentage > 90) {
-              warning = "*Attendance is above 90%.";
-          } else {
-          warning = "*No attendance data available.";
-        }
-
+    
     card.innerHTML = `
-            <h6>Class: <span class="fw-normal">${cls.class_sem}</span></h6>
-            <h6>Total Students: <span class="fw-normal"> ${cls.total_students}</span></h6>
-            <p class="my-1 text-danger">${warning}</p>
-  `;   
+    <h6>Class: <span class="fw-normal">${cls.class_sem}</span></h6>
+    <h6>Total Students: <span class="fw-normal"> ${cls.total_students}</span></h6>
+    `;   
+    const warning = data.chartData.classwise.find(item => item.class_sem === cls.class_sem);
+        if (warning.present_percentage < 75) {
+          card.innerHTML +=`<p class="my-1 text-danger">*Attendance is below 75%.</p>`;
+        } else if (warning.present_percentage >= 75) {
+            card.innerHTML +=`<p class="my-1 text-primary">*Attendance is above 75%.</p>`;
+          } else {
+            card.innerHTML +=`<p class="my-1 text-primary">*No attendance data available..</p>`;
+        }
     classStudent.appendChild(card);
 });
 

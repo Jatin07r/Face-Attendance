@@ -38,36 +38,31 @@ router.get('/fetchAdminDashboard', async (req, res) => {
             return { class_sem, total_students };
         });
         
-        const classesArray = adminClasses[0].classes.split(','); 
         db.query(`SELECT 
-    'classwise' AS type,
-    CONCAT(student.class, '(', student.semester, ')') AS class_sem, 
-    COUNT(*) AS total_attendance,
-    FORMAT(COUNT(CASE WHEN attendance.status = 'Present' THEN 1 END) * 100.0 / COUNT(*), 2) AS present_percentage,
-    FORMAT(COUNT(CASE WHEN attendance.status = 'Absent' THEN 1 END) * 100.0 / COUNT(*), 2) AS absent_percentage,
-    COUNT(CASE WHEN status = 'Present' THEN 1 END) AS present_count,
-    COUNT(CASE WHEN status = 'Absent' THEN 1 END) AS absent_count
-FROM attendance
-JOIN student ON attendance.student_id = student.student_id
-WHERE student.class IN (?)
-GROUP BY student.class, student.semester
-
-UNION ALL
-
-SELECT 
-    'combined_summary' AS type,
-    NULL AS class_sem,
-    COUNT(*) AS total_attendance,
-    FORMAT(COUNT(CASE WHEN status = 'Present' THEN 1 END) * 100.0 / COUNT(*), 2) AS present_percentage,
-    FORMAT(COUNT(CASE WHEN status = 'Absent' THEN 1 END) * 100.0 / COUNT(*), 2) AS absent_percentage,
-    COUNT(CASE WHEN status = 'Present' THEN 1 END) AS present_count,
-    COUNT(CASE WHEN status = 'Absent' THEN 1 END) AS absent_count
-FROM attendance
-JOIN student ON attendance.student_id = student.student_id
-  WHERE student.class IN (?)
-
-                `, [classesArray],
-            (err, chartResults) => {
+                    'classwise' AS type,
+                    CONCAT(student.class, '(', student.semester, ')') AS class_sem, 
+                    COUNT(*) AS total_attendance,
+                    FORMAT(COUNT(CASE WHEN attendance.status = 'Present' THEN 1 END) * 100.0 / COUNT(*), 2) AS present_percentage,
+                    FORMAT(COUNT(CASE WHEN attendance.status = 'Absent' THEN 1 END) * 100.0 / COUNT(*), 2) AS absent_percentage,
+                    COUNT(CASE WHEN status = 'Present' THEN 1 END) AS present_count,
+                    COUNT(CASE WHEN status = 'Absent' THEN 1 END) AS absent_count
+                FROM attendance
+                JOIN student ON attendance.student_id = student.student_id
+                GROUP BY student.class, student.semester
+                
+                UNION ALL
+                
+                SELECT 
+                    'combined_summary' AS type,
+                    NULL AS class_sem, 
+                    COUNT(*) AS total_attendance,
+                    FORMAT(COUNT(CASE WHEN status = 'Present' THEN 1 END) * 100.0 / COUNT(*), 2) AS present_percentage,
+                    FORMAT(COUNT(CASE WHEN status = 'Absent' THEN 1 END) * 100.0 / COUNT(*), 2) AS absent_percentage,
+                    COUNT(CASE WHEN status = 'Present' THEN 1 END) AS present_count,
+                    COUNT(CASE WHEN status = 'Absent' THEN 1 END) AS absent_count
+                FROM attendance
+                JOIN student ON attendance.student_id = student.student_id
+                `,(err, chartResults) => {
                 if (err) {
                     console.error("Error fetching admin data:", err);
                     return res.status(500).json({ error: "Database query failed" });

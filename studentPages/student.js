@@ -39,6 +39,14 @@ function displayData(data){
             <h6>Class: <span class="fw-normal">${cls.subject_class}</span></h6>
             <h6>Time: <span class="fw-normal"> ${cls.date_time}</span></h6>
         `;
+        const warning = data.chartData.subjectwise.find(item => item.subject_name === cls.subject_name);
+        if (warning.present_percentage < 75) {
+          card.innerHTML +=`<p class="my-1 text-danger">*Attendance is below 75%.</p>`;
+        } else if( warning.present_percentage >= 75) {
+            card.innerHTML +=`<p class="my-1 text-primary">*Attendance is above 75%.</p>`;
+          } else {
+            card.innerHTML +=`<p class="my-1 text-primary">*No attendance data available..</p>`;
+        }
 
         timeTable.appendChild(card);
     });
