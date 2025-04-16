@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function loadContent(url, updateURL = true) {
       try {
         const response = await fetch(url);
-        if (!response.ok) {window.location.href = "errorpages/404.html";};
+        if (!response.ok) {window.location.href = "/errorpages/404.html";};
 
         const html = await response.text();
         content.innerHTML = html;
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       } catch (error) {
         // window.location.href = "errorpages/500.html";
-        const serverError = await fetch("errorpages/500.html");
+        const serverError = await fetch("/errorpages/500.html");
         document.querySelector(".nav-link").classList.remove("active");
         const serverHtml = await serverError.text();
         content.innerHTML = serverHtml;        
@@ -56,7 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "login/adminLogin.html": ["login/adminLogin.js"],
         "login/sidLogin.html": ["login/studentLogin.js"],
         "login/sfLogin.html": ["login/studentLogin.js"],
-        "dashboard.html": ["admin.js", "student.js"]
+        "dashboard.html": ["admin.js", "student.js"],
+        "adminView.html": ["adminView.js"],
+        "downloadAttendance.html": ["downloadAttendance.js"],
+        "studentView.html": ["studentView.js"]
       }
       const scriptsLoad = scriptsMap[url] || [];
       scriptsLoad.forEach(src => {
@@ -76,6 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const page = link.getAttribute("href");
         if (!page) return;
         loadContent(page);
+        scriptToLoad(page);
         link.classList.add("active");
       });
     });

@@ -23,7 +23,7 @@ router.get('/fetchAdminView', (req, res) => {
                     attendance.status,
                     DATE_FORMAT(attendance.date_time, '%Y-%m-%d %h:%i %p') AS date
                 FROM attendance 
-                JOIN student ON attendance.student_id = student.student_id 
+                JOIN student ON attendance.date_time >= NOW() - INTERVAL 1 MONTH AND attendance.student_id = student.student_id 
                 ORDER BY attendance.date_time DESC
                 `;
     db.query(query, (err, results) => {
@@ -48,8 +48,8 @@ router.get('/fetchStudentView', (req, res) => {
                     attendance.status,
                     DATE_FORMAT(attendance.date_time, '%Y-%m-%d %h:%i %p') AS date
                 FROM attendance 
-                JOIN student ON attendance.student_id = student.student_id 
-                WHERE attendance.date_time >= NOW() - INTERVAL 1 MONTH AND attendance.student_id = ?
+                JOIN student ON attendance.date_time >= NOW() - INTERVAL 1 MONTH AND attendance.student_id = student.student_id 
+                WHERE attendance.student_id = ?
                 ORDER BY attendance.date_time DESC
                 `;
     const condition = ['426801'];

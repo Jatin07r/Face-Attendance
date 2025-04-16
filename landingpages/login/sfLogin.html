@@ -23,8 +23,8 @@
       <p id="database-error" class="d-none">*An database eror occured. Try again later</p>
       <form id="login">
         <div class="mb-2 text-center">
-          <video id="sf" class="border rounded-circle shadow-sm mb-1" autoplay
-            style="height: 15rem; width: 15rem;"></video>
+          <video id="sf" class="border rounded-circle shadow-sm mb-1" autoplay muted
+          style="height: 15rem; width: 15rem;"></video>
           <label class="form-label">Put face inside the circle</label>
         </div>
 
@@ -36,8 +36,21 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/scrollreveal"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+
   <script src="studentLogin.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+  <script>
+    const video = document.getElementById('sf');
+   navigator.mediaDevices.getUserMedia({ video: true })
+    .then((stream) => {
+      video.srcObject = stream;
+    })
+    .catch((err) => {
+      console.error('Webcam error:', err);
+      alert('Unable to access camera. Please allow permission.');
+    });
+// camera not found
+  </script>
 </body>
 
 </html>

@@ -28,7 +28,7 @@
             <a class="nav-link rounded-pill" href="adminView.html">View Attendance</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link rounded-pill" href="manageAttendance.html">Manage Attendance</a>
+            <a class="nav-link rounded-pill" href="downloadAttendance.html">Download Attendance</a>
           </li>
           <li class="nav-item">
             <a id="logout" class="nav-link rounded-pill align-self-end">Log out</a>
@@ -47,6 +47,8 @@
   
   <script src="/landingpages/home.js"></script>  
   <script src="/landingpages/notifications.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
   if (sessionStorage.getItem("loginSuccess") === "true") {
     showToast("You have logged in successfully", "primary");

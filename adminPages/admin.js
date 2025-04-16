@@ -1,13 +1,3 @@
-const adminName = document.querySelector("#admin-name");
-const email = document.querySelector("#email");
-const classes = document.querySelector("#classes");
-const students = document.querySelector("#students");
-const contact = document.querySelector("#contact");
-const classStudent = document.querySelector("#class-student");
-const classAttendance = document.querySelector("#class-attendance");
-const allAttendance = document.querySelector("#all-attendance");
-const totalAttendance = document.querySelector("#total-attendance");
-
 async function fetchData() {
   try {
     const response = await fetch("http://localhost:3000/fetchAdminDashboard", {
@@ -23,6 +13,16 @@ async function fetchData() {
 
 //Dashboard Data
 function displayData(data) {
+  const adminName = document.querySelector("#admin-name");
+  const email = document.querySelector("#email");
+  const classes = document.querySelector("#classes");
+  const students = document.querySelector("#students");
+  const contact = document.querySelector("#contact");
+  const classStudent = document.querySelector("#class-student");
+  const classAttendance = document.querySelector("#class-attendance");
+  const allAttendance = document.querySelector("#all-attendance");
+  const totalAttendance = document.querySelector("#total-attendance");
+
   adminName.textContent = `${data.userData[0].name}`;
   email.textContent = `${data.userData[0].email}`;
   classes.textContent = `${data.userData[0].classes}`;
@@ -33,22 +33,22 @@ function displayData(data) {
   data.classData.forEach(cls => {
     const card = document.createElement("div");
     card.className = "class-card col-5 col-md-3 p-2 m-2 rounded bg-white shadow-sm";
-    
-    
+
+
     card.innerHTML = `
     <h6>Class: <span class="fw-normal">${cls.class_sem}</span></h6>
     <h6>Total Students: <span class="fw-normal"> ${cls.total_students}</span></h6>
-    `;   
+    `;
     const warning = data.chartData.classwise.find(item => item.class_sem === cls.class_sem);
-        if (warning.present_percentage < 75) {
-          card.innerHTML +=`<p class="my-1 text-danger">*Attendance is below 75%.</p>`;
-        } else if (warning.present_percentage >= 75) {
-            card.innerHTML +=`<p class="my-1 text-primary">*Attendance is above 75%.</p>`;
-          } else {
-            card.innerHTML +=`<p class="my-1 text-primary">*No attendance data available..</p>`;
-        }
+    if (warning.present_percentage < 75) {
+      card.innerHTML += `<p class="my-1 text-danger">*Attendance is below 75%.</p>`;
+    } else if (warning.present_percentage >= 75) {
+      card.innerHTML += `<p class="my-1 text-primary">*Attendance is above 75%.</p>`;
+    } else {
+      card.innerHTML += `<p class="my-1 text-primary">*No attendance data available..</p>`;
+    }
     classStudent.appendChild(card);
-});
+  });
 
   const labels = data.chartData.classwise.map(item => item.class_sem);
   const presentData = data.chartData.classwise.map(item => item.present_percentage);
@@ -152,4 +152,6 @@ function displayData(data) {
   totalAttendance.appendChild(totalAttendanceText);
 }
 
-window.addEventListener("DOMContentLoaded", fetchData);
+setTimeout(() => {
+  fetchData();
+}, 10);

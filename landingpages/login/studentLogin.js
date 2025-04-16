@@ -6,6 +6,7 @@ const databaseError = document.querySelector('#database-error');
 login.addEventListener('submit', async function (event) {
     event.preventDefault();
 
+    const student_fid = document.querySelector('#fid').value;
     const student_id = document.querySelector('#sid').value.trim();
     const password = document.querySelector('#password').value.trim();
 
