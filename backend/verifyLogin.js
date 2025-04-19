@@ -36,7 +36,7 @@ router.post('/alogin', (req, res) => {
     });
 });
 
-//Student Login Route
+//Student ID Login Route
 router.post('/sidlogin', (req, res) => {
     const { student_id, password } = req.body;
 
@@ -54,6 +54,24 @@ router.post('/sidlogin', (req, res) => {
         if (student.password!== password) {
             return res.status(401).json({success:false, error: 'Invalid password' });
         }            
+        // req.session.userId = student_id;
+        res.json({success:true, message: 'Login successful' });
+    });
+});
+
+//Student Face ID Login Route
+router.post('/sflogin', (req, res) => {
+    const { student_fid } = req.body;
+
+    db.query('SELECT student_fid FROM student WHERE student_fid = ?',[student_fid], (err, results) => {
+        if (err) {
+            return res.status(500).json({success:false, error: 'Database error' });
+        }
+
+        if (results.length === 0) {
+            return res.status(401).json({success:false, error: 'Match Not Found' });
+        }
+
         // req.session.userId = student_id;
         res.json({success:true, message: 'Login successful' });
     });
