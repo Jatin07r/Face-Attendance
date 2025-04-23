@@ -22,3 +22,5 @@ function startCamera() {
             alert('Unable to access the camera. Please allow camera permissions.');
         });
 }
+
+window.addEventListener('DOMContentLoaded', faceApi);
