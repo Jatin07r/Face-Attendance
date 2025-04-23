@@ -14,7 +14,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-
 //Session Store
 const db = mysql.createConnection(config);
 const sessionStore = new MySQLStore(config, db);

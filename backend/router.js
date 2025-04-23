@@ -4,6 +4,7 @@ const fetchAdminRoute = require('./fetchAdminData');
 const fetchStudentRoute = require('./fetchStudentData');
 const viewRoute = require('./viewData');
 const download = require('./download');
+const add = require('./add');
 
 // Login check
 server.use('/', loginRoute);
@@ -18,4 +19,7 @@ server.use('/',fetchStudentRoute);
 server.use('/',viewRoute);
 
 //Download Attendance
-server.use('/',download)
+server.use('/',download);
+
+//Add Attendance
+server.use('/',add);

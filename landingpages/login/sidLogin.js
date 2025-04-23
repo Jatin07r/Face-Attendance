@@ -5,7 +5,7 @@ const databaseError = document.querySelector('#database-error');
 
 login.addEventListener('submit', async function (event) {
     event.preventDefault();
-    
+
     const student_id = document.querySelector('#sid').value.trim();
     const password = document.querySelector('#password').value.trim();
 
@@ -22,19 +22,23 @@ login.addEventListener('submit', async function (event) {
         if (!result.success && result.error === 'Invalid student id') {
             invalidStudentId.className = 'd-block text-primary';
             invalidPassword.className = 'd-none';
-        } 
-        else if(!result.success && result.error === 'Invalid password') {
+        }
+        else if (!result.success && result.error === 'Invalid password') {
             invalidStudentId.className = 'd-none';
             invalidPassword.className = 'd-block text-primary';
-        } 
-        else if(!result.success && result.error === 'Database error') {
+        }
+        else if (!result.success && result.error === 'Database error') {
             invalidStudentId.className = 'd-none';
             invalidPassword.className = 'd-none';
             databaseError.className = 'd-block text-center text-primary';
-        } 
-        else if(result.success) {     
-        sessionStorage.setItem("loginSuccess", "true");
-        window.location.href = '/studentpages/studentNavbar.html';
+        }
+        else if (result.success) {
+            sessionStorage.setItem("loginSuccess", "true");
+            window.location.href = '/studentpages/studentNavbar.html';
+            history.pushState(null, null, "/studentpages/studentNavbar.html");
+            window.addEventListener("popstate", () => {
+                history.pushState(null, null, "/studentpages/studentNavbar.html");
+            });
         }
     } catch (error) {
         alert('An error occurred. Please check your connection and try again.');

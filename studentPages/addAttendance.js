@@ -1,10 +1,10 @@
 const invalidStudentSf = document.querySelector('#invalid-sf');
 const ins = document.querySelector('#instructions');
 const databaseError = document.querySelector('#database-error');
-const verifyButton = document.querySelector('#verify');
+const addButton = document.querySelector('#add');
 
-async function verifyFace() {
-    verifyButton.disabled = true;
+async function addAttendance() {
+    addButton.disabled = true;
     try {
         const detection = await faceapi
             .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
@@ -44,23 +44,17 @@ async function verifyFace() {
             ins.className = 'd-none';
             databaseError.className = 'd-block text-center text-primary';
         }
-        else if (result.success) { 
-            sessionStorage.setItem('loginSuccess', 'true'); 
-            window.location.href = '/studentpages/studentNavbar.html';
-            history.pushState(null, null, '/studentpages/studentNavbar.html');
-            window.addEventListener('popstate', () => {
-                history.pushState(null, null, '/studentpages/studentNavbar.html');
-            });
-        } 
+        else if (result.success) { sessionStorage.setItem('addSuccess', 'true')} 
+   
     } catch (error) {
         console.error('Error during face recognition:', error);
     } finally {
-        verifyButton.disabled = false;
+        addButton.disabled = false;
     }
 }
 
 // Add event listener to the verify button
-verifyButton.addEventListener('click', (event) => {     
+addButton.addEventListener('click', (event) => {     
     event.preventDefault();   
-    verifyFace();
+    addAttendance();
 });

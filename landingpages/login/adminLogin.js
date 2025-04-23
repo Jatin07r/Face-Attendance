@@ -18,23 +18,28 @@ login.addEventListener('submit', async function (event) {
         });
 
         const result = await response.json();
-            
+
         if (!result.success && result.error === 'Invalid email') {
             invalidEmail.className = 'd-block text-primary';
             invalidPassword.className = 'd-none';
-        } 
-        else if(!result.success && result.error === 'Invalid password') {
+        }
+        else if (!result.success && result.error === 'Invalid password') {
             invalidEmail.className = 'd-none';
             invalidPassword.className = 'd-block text-primary';
-        } 
-        else if(!result.success && result.error === 'Database error') {
+        }
+        else if (!result.success && result.error === 'Database error') {
             invalidEmail.className = 'd-none';
             invalidPassword.className = 'd-none';
             databaseError.className = 'd-block text-center text-primary';
-        } 
-        else if(result.success) {  
-        sessionStorage.setItem("loginSuccess", "true");
-        window.location.href = '/adminpages/adminNavbar.html';
+        }
+        else if (result.success) {
+            sessionStorage.setItem("loginSuccess", "true");
+            window.location.href = '/adminpages/adminNavbar.html';
+
+            history.pushState(null, null, "/adminpages/adminNavbar.html");
+            window.addEventListener("popstate", () => {
+                history.pushState(null, null, "/adminpages/adminNavbar.html");
+            });
         }
     } catch (error) {
         alert('An error occurred. Please check your connection and try again.');

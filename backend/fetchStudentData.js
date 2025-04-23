@@ -31,7 +31,7 @@ router.get('/fetchStudentDashboard', (req, res) => {
         }
 
         const userData = studentResults.map(admin => {
-            const { student_fid, password, ...rest } = admin;
+            const { student_face, password, ...rest } = admin;
             return rest;
         });
 

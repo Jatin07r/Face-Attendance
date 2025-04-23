@@ -27,19 +27,20 @@
           <video id="sf" class="border rounded-circle shadow-sm object-fit-cover w-75" autoplay muted style="height: 15rem; max-width: 15rem; transform: scaleX(-1);"></video>
           <label id="invalid-sf" class="form-label">Put face inside the circle</label>
         </div>
-        <p id="instructions" class="d-none">Face not recognized. Make sure you're facing the camera clearly with good lighting and try again.</p>
+        <p id="instructions" class="d-none">No face detected. Make sure you're facing the camera clearly with good lighting and try again.</p>
 
-        <button type="submit" class="btn btn-primary w-100 bg-primary" value="login">
+        <button id="verify" class="btn btn-primary w-100 bg-primary">
           <i class="bi bi-person-circle"></i> Verify Face ID
         </button>
       </form>
     </div>
   </div>
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js" onload="faceApi()"></script>
+  <script src="faceApi.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/scrollreveal"></script>
 
   <script src="sfLogin.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
 </body>
 
 </html>

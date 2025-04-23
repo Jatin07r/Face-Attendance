@@ -31,7 +31,7 @@ router.get('/fetchAdminView', (req, res) => {
             return res.status(500).json({ error: 'Database error' });
         }
         const adminAttendanceData = results.map(admin => {
-            const { password, student_fid, ...rest } = admin;
+            const { password, student_face, ...rest } = admin;
             return rest;
         });
         
@@ -58,7 +58,7 @@ router.get('/fetchStudentView', (req, res) => {
             return res.status(500).json({ error: 'Database error' });
         }
         const studentAttendanceData1 = results.map(student => {
-            const { password,student_fid, ...rest } = student;
+            const { password,student_face, ...rest } = student;
             return rest;
         });
         
