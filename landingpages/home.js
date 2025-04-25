@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const content = document.querySelector("#content");
+  let cameraStream = null;
 
   // Navbar blur effect
   window.addEventListener("scroll", function () {
@@ -14,12 +15,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to load content dynamically
   async function loadContent(url, updateURL = true) {
     try {
+      stopCamera();
+
       const response = await fetch(url);
       if (!response.ok) { window.location.href = "/errorpages/404.html"; };
 
       const html = await response.text();
       content.innerHTML = html;
-      scriptToLoad(url);
+      setTimeout(() => { scriptToLoad(url); }, 50);
+
+      if (url === "login/sfLogin.html" || url === "addAttendance.html") {
+        startCamera();
+      }
 
       if (updateURL) {
         history.pushState({ page: url }, "", `?page=${url}`);
@@ -44,6 +51,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  //Camera initialization
+  function startCamera() {
+    const video = document.querySelector('#sf');
+    if (!video) {
+      console.error("Video element not found");
+      return;
+    }
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        cameraStream = stream;
+        video.srcObject = stream;
+        video.play();
+        faceApi();
+      })
+      .catch((err) => {
+        console.error("Camera initialization failed:", err);
+        if (err.name === "NotAllowedError") {
+          alert("Camera access denied. Please allow camera permissions.");
+        } else if (err.name === "NotFoundError") {
+          alert("No camera found on this device.");
+        }
+      });
+  }
+
+  //Stop the camera 
+  function stopCamera() {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+      cameraStream = null;
+    }
+  }
+
   //Load the initial page
   loadContent("dashboard.html");
   document.querySelector(".nav-link").classList.add("active");
@@ -54,18 +94,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const scriptsMap = {
       "login/adminLogin.html": ["login/adminLogin.js"],
       "login/sidLogin.html": ["login/sidLogin.js"],
-      "login/sfLogin.html": ["login/sfLogin.js"],
+      "login/sfLogin.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "login/sfLogin.js", "login/faceApi.js"],
       "dashboard.html": ["admin.js", "student.js"],
       "adminView.html": ["adminView.js"],
       "downloadAttendance.html": ["downloadAttendance.js"],
       "studentView.html": ["studentView.js"],
-      "addAttendance.html": ["addAttendance.js"]
+      "addAttendance.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "addAttendance.js", "/landingpages/login/faceApi.js"]
     }
+    document.querySelectorAll("script[data-dynamic='true']").forEach(script => script.remove());
+
     const scriptsLoad = scriptsMap[url] || [];
     scriptsLoad.forEach(src => {
       const script = document.createElement("script");
       script.src = src;
-      script.defer = true;
+      script.dataset.dynamic = "true";
       document.body.appendChild(script);
     });
   }
@@ -134,8 +176,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Navbar blur effect
+  window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".navbar");
+    if (!navbar) return;
+
+    if (window.scrollY > 10) {
+      navbar.classList.add("navbar-blur");
+    } else {
+      navbar.classList.remove("navbar-blur");
+    }
+  });
+
   //Logout
-  const logout = document.querySelector('#logout')
+  const logout = document.querySelector('#logout');
   logout.addEventListener('click', () => {
     sessionStorage.removeItem("loginSuccess");
     sessionStorage.setItem("logoutSuccess", "true");

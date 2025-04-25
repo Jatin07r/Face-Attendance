@@ -1,9 +1,10 @@
-const invalidStudentSf = document.querySelector('#invalid-sf');
-const ins = document.querySelector('#instructions');
-const databaseError = document.querySelector('#database-error');
 const verifyButton = document.querySelector('#verify');
 
 async function verifyFace() {
+    const video = document.querySelector('#sf');
+    const invalidStudentSf = document.querySelector('#invalid-sf');
+    const ins = document.querySelector('#instructions');
+    const databaseError = document.querySelector('#database-error');
     verifyButton.disabled = true;
     try {
         const detection = await faceapi

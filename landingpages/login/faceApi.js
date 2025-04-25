@@ -1,4 +1,3 @@
-const video = document.querySelector('#sf');
 function faceApi() {
     Promise.all([
         faceapi.nets.tinyFaceDetector.loadFromUri('/models/tiny_face_detector'),
@@ -10,17 +9,6 @@ function faceApi() {
         console.error('Error loading Face recognition models:', err);
         alert('Failed to load face recognition models. Please try again later.');
     });
-}
-
-function startCamera() {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-            video.srcObject = stream;
-        })
-        .catch((err) => {
-            console.error('Webcam error:', err);
-            alert('Unable to access the camera. Please allow camera permissions.');
-        });
 }
 
 window.addEventListener('DOMContentLoaded', faceApi);

@@ -41,10 +41,6 @@ function displayData(data) {
     const warning = data.chartData.subjectwise.find(item => item.subject_name === cls.subject_name);
     if (warning.present_percentage < 75) {
       card.innerHTML += `<p class="my-1 text-danger">*Attendance is below 75%.</p>`;
-    } else if (warning.present_percentage >= 75) {
-      card.innerHTML += `<p class="my-1 text-primary">*Attendance is above 75%.</p>`;
-    } else {
-      card.innerHTML += `<p class="my-1 text-primary">*No attendance data available..</p>`;
     }
 
     timeTable.appendChild(card);
@@ -83,20 +79,9 @@ function displayData(data) {
           ticks: {
             stepSize: 25,
             callback: value => value + "%"
-          },
-          title: {
-            display: true,
-            text: "Percentage (%)"
           }
         },
         x: {
-          title: {
-            display: true,
-            text: "Subject Name",
-            font: {
-              weight: 'bold'
-            }
-          },
           ticks: {
             callback: function (value) {
               const label = this.getLabelForValue(value);

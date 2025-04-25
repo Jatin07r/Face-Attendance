@@ -19,10 +19,7 @@ router.post('/add', (req, res) => {
     db.query('SELECT * FROM time_table WHERE student_id',[student_id], (err, results) => {
         if (err) {
             return res.status(500).json({success:false, error: 'Database error' });
-        }
-        if(results.length === 0){
-            return res.json({success:false, error: 'No Subject Found'})
-        }  
+        } 
         const validSubject = results.find(row => row.subject_name.trim().toLowerCase() === subject_name);
         if (!validSubject) {
             return res.status(400).json({ success: false, error: 'Incorrect subject name' });

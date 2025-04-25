@@ -83,21 +83,8 @@ function displayData(data) {
           ticks: {
             stepSize: 25,
             callback: value => value + "%"
-          },
-          title: {
-            display: true,
-            text: "Percentage (%)"
           }
         },
-        x: {
-          title: {
-            display: true,
-            text: "Class / Semester",
-            font: {
-              weight: 'bold'
-            }
-          }
-        }
       },
       plugins: {
         legend: {

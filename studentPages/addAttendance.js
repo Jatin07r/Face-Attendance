@@ -1,17 +1,28 @@
-const subName = document.querySelector('#sub-name');
-const incorrectSubName = document.querySelector('#incorrect-sub-name');
-const invalidStudentSf = document.querySelector('#invalid-sf');
-const ins = document.querySelector('#instructions');
-const databaseError = document.querySelector('#database-error');
-const addButton = document.querySelector('#add');
 
 async function addAttendance() {
+    const video = document.querySelector('#sf');
+    const addButton = document.querySelector('#add');
+    const subName = document.querySelector('#sub-name');
+    const incorrectSubName = document.querySelector('#incorrect-sub-name');
+    const invalidStudentSf = document.querySelector('#invalid-sf');
+    const ins = document.querySelector('#instructions');
+    const databaseError = document.querySelector('#database-error');
     addButton.disabled = true;
     try {
         const detection = await faceapi
             .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
             .withFaceLandmarks()
             .withFaceDescriptor();
+
+            // Validate subject name input
+            if (subName.value.trim() === '') {
+                incorrectSubName.textContent = '*Enter Subject Name';
+                incorrectSubName.className = 'form-label text-danger';
+                addButton.disabled = false;
+                return;
+            } else {
+                incorrectSubName.className = 'd-none';
+            }
 
         if (!detection) {
             ins.className = 'd-block text-danger';
@@ -21,13 +32,6 @@ async function addAttendance() {
             return;
         }
 
-        // Validate subject name input
-        if (subName.value.trim() === '') {
-            incorrectSubName.textContent = '*Enter Subject Name';
-            incorrectSubName.className = 'form-label text-danger';
-            addButton.disabled = false;
-            return;
-        }
 
         const descriptor = Array.from(detection.descriptor);
 
@@ -51,8 +55,8 @@ async function addAttendance() {
             ins.className = 'd-none';
         } else if (!result.success && result.error === 'Database error') {
             invalidStudentSf.className = 'd-none';
-            ins.className = 'd-none';
             databaseError.className = 'd-block text-center text-primary';
+            ins.className = 'd-none';
         } else if (result.success) {
             // Prepare data for adding attendance
             const subjectName = subName.value.trim().toLowerCase();
@@ -75,13 +79,8 @@ async function addAttendance() {
             if (!addResult.success && addResult.error === 'Incorrect subject name') {
                 incorrectSubName.textContent = '*Incorrect Subject Name';
                 incorrectSubName.className = 'form-label text-danger';
-            } else if (!addResult.success && addResult.error === 'No Subject Found') {
-                incorrectSubName.textContent = '*No Subject Found';
-                incorrectSubName.className = 'form-label text-danger';
             } else if (addResult.success) {
                 sessionStorage.setItem('addSuccess', 'true');
-                alert('Attendance added successfully!');
-                subName.value = ''; 
             }
         }
     } catch (error) {
