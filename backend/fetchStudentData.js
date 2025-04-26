@@ -14,14 +14,13 @@ db.connect(err => {
 });
 
 router.get('/fetchStudentDashboard', (req, res) => {
-    // const sessionId= req.session.userId;
+    const sessionId= req.session.userId;
     const query = `SELECT  student.*, time_table.*,
     DATE_FORMAT(time_table.subject_time, '%h:%i %p') as date_time 
     FROM student
     INNER JOIN time_table ON time_table.student_id = student.student_id
     WHERE student.student_id = ?`;
-    const condition = ['426801'];
-    db.query(query, condition, (err, studentResults) => {
+    db.query(query, sessionId, (err, studentResults) => {
         if (err) {
             console.error('Error fetching student data:', err);
             return res.status(500).json({ error: 'Database query failed' });
@@ -65,7 +64,7 @@ router.get('/fetchStudentDashboard', (req, res) => {
                     FROM attendance
                     WHERE student_id = ?;
             `;
-        db.query(query, [condition,condition], (err, chartResults) => {
+        db.query(query, [sessionId,sessionId], (err, chartResults) => {
             if (err) {
                 console.error("Error fetching student data:", err);
                 return res.status(500).json({ error: "Database query failed" });

@@ -14,11 +14,10 @@ db.connect(err => {
 });
 
 router.get('/fetchAdminDashboard', async (req, res) => {
-    // const sessionId = req.session.userId;
+    const sessionId = req.session.userId;
     const query = 'SELECT * FROM admin INNER JOIN class_table ON admin.admin_id = class_table.admin_id WHERE admin.admin_id = ?';
-    const condition = ['1'];
 
-    db.query(query, condition, (err, adminResults) => {
+    db.query(query, sessionId, (err, adminResults) => {
         if (err) {
             console.error('Error fetching admin data:', err);
             return res.status(500).json({ error: 'Database query failed' });

@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch("http://localhost:3000/downloadAttendance", {
+        const response = await fetch("/downloadAttendance", {
             method: "GET",
             withCredentials: true
         });

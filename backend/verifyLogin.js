@@ -30,8 +30,8 @@ router.post('/alogin', (req, res) => {
         if (admin.password!== password) {
             return res.status(401).json({success:false, error: 'Invalid password' });
         }
-        
-        // req.session.userId = admin.admin_id;
+        req.session.userId = admin.admin_id;
+        res.setHeader('Cache-Control', 'no-store');
         res.json({success:true, message: 'verification successful'});
     });
 });
@@ -54,7 +54,8 @@ router.post('/sidlogin', (req, res) => {
         if (student.password!== password) {
             return res.status(401).json({success:false, error: 'Invalid password' });
         }            
-        // req.session.userId = student_id;
+        req.session.userId = student_id;
+        res.setHeader('Cache-Control', 'no-store');
         res.json({success:true, message: 'verification successful' });
     });
 });
@@ -109,6 +110,7 @@ router.post('/sflogin', (req, res) => {
                 const distance = euclideanDistance(student_face, storedDescriptor);
 
                 if (distance < bestMatch.distance) {
+                    req.session.userId = student_id;
                     bestMatch = { id: row.student_id, distance };
                     noFaceFound = false; 
                 }
@@ -123,8 +125,11 @@ router.post('/sflogin', (req, res) => {
             }
 
             if (bestMatch.distance < 0.5) {
-                return res.json({ success: true, message: 'Verification successful', student_id: bestMatch.id });
-            } else {
+                req.session.userId = bestMatch.id;
+                res.setHeader('Cache-Control', 'no-store');
+                res.json({ success: true, message: 'Verification successful'});
+                return
+        } else {
                 return res.json({ success: false, error: 'No matching face found' });
             }
         } catch (error) {

@@ -34,12 +34,13 @@ login.addEventListener('submit', async function (event) {
         }
         else if (result.success) {
             sessionStorage.setItem("loginSuccess", "true");
-            window.location.href = '/adminpages/adminNavbar.html';
+            sessionStorage.setItem("role", "admin");
+            window.location.href = 'adminNavbar.html';
 
-            history.pushState(null, null, "/adminpages/adminNavbar.html");
-            window.addEventListener("popstate", () => {
-                history.pushState(null, null, "/adminpages/adminNavbar.html");
-            });
+            history.pushState(null, null, "adminNavbar.html");
+            window.onpopstate = function () {
+                history.go(1);
+            };
         }
     } catch (error) {
         alert('An error occurred. Please check your connection and try again.');

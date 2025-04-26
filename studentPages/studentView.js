@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch("http://localhost:3000/fetchStudentView", {
+        const response = await fetch("/fetchStudentView", {
             method: "GET",
             withCredentials: true
         });

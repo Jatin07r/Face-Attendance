@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stopCamera();
 
       const response = await fetch(url);
-      if (!response.ok) { window.location.href = "/errorpages/404.html"; };
+      if (!response.ok) { window.location.href = "404.html"; };
 
       const html = await response.text();
       content.innerHTML = html;
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
     } catch (error) {
-      const serverError = await fetch("/errorpages/500.html");
+      const serverError = await fetch("500.html");
       document.querySelector(".nav-link").classList.remove("active");
       const serverHtml = await serverError.text();
       content.innerHTML = serverHtml;
@@ -85,7 +85,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //Load the initial page
+  if(sessionStorage.getItem("role") === "admin"){
+    loadContent("admin.html");
+  } else if(sessionStorage.getItem("role") === "student"){
+    loadContent("student.html");
+  } else 
   loadContent("dashboard.html");
+  
   document.querySelector(".nav-link").classList.add("active");
   document.body.classList.add("bg-light");
 
@@ -95,7 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
       "login/adminLogin.html": ["login/adminLogin.js"],
       "login/sidLogin.html": ["login/sidLogin.js"],
       "login/sfLogin.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "login/sfLogin.js", "login/faceApi.js"],
-      "dashboard.html": ["admin.js", "student.js"],
+      "dashboard.html": ["home.js"],
+      "admin.html": ["admin.js"],
+      "student.html": ["student.js"],
       "adminView.html": ["adminView.js"],
       "downloadAttendance.html": ["downloadAttendance.js"],
       "studentView.html": ["studentView.js"],
@@ -192,12 +200,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const logout = document.querySelector('#logout');
   logout.addEventListener('click', () => {
     sessionStorage.removeItem("loginSuccess");
+    sessionStorage.removeItem("role");
     sessionStorage.setItem("logoutSuccess", "true");
-    window.location.href = "/landingpages/homeNavbar.html";
+    window.location.href = "homeNavbar.html";
 
-    history.pushState(null, null, "/landingpages/homeNavbar.html");
-    window.addEventListener("popstate", () => {
-      history.pushState(null, null, "/landingpages/homeNavbar.html");
-    });
+    history.pushState(null, null, "homeNavbar.html");
+    window.onpopstate = function () {
+      history.go(1);
+  };
   });
 });

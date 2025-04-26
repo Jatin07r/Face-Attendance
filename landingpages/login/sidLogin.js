@@ -33,12 +33,13 @@ login.addEventListener('submit', async function (event) {
             databaseError.className = 'd-block text-center text-primary';
         }
         else if (result.success) {
-            sessionStorage.setItem("loginSuccess", "true");
-            window.location.href = '/studentpages/studentNavbar.html';
-            history.pushState(null, null, "/studentpages/studentNavbar.html");
-            window.addEventListener("popstate", () => {
-                history.pushState(null, null, "/studentpages/studentNavbar.html");
-            });
+            sessionStorage.setItem('loginSuccess', 'true');
+            sessionStorage.setItem("role", "student");
+            window.location.href = 'studentNavbar.html';
+            history.pushState(null, null, 'studentNavbar.html');
+            window.onpopstate = function () {
+                history.go(1);
+            };
         }
     } catch (error) {
         alert('An error occurred. Please check your connection and try again.');

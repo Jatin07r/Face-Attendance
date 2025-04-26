@@ -52,8 +52,8 @@ router.get('/fetchStudentView', (req, res) => {
                 WHERE attendance.student_id = ?
                 ORDER BY attendance.date_time DESC
                 `;
-    const condition = ['426801'];
-    db.query(query, condition, (err, results) => {
+    const sessionId = req.session.userId;
+    db.query(query, sessionId, (err, results) => {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }

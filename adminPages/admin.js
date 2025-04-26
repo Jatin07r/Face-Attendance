@@ -1,8 +1,8 @@
 async function fetchData() {
   try {
-    const response = await fetch("http://localhost:3000/fetchAdminDashboard", {
+    const response = await fetch("/fetchAdminDashboard", {
       method: "GET",
-      withCredentials: true
+      credentials: 'include'
     });
     const result = await response.json();
     displayData(result);

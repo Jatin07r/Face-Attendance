@@ -47,11 +47,12 @@ async function verifyFace() {
         }
         else if (result.success) { 
             sessionStorage.setItem('loginSuccess', 'true'); 
-            window.location.href = '/studentpages/studentNavbar.html';
-            history.pushState(null, null, '/studentpages/studentNavbar.html');
-            window.addEventListener('popstate', () => {
-                history.pushState(null, null, '/studentpages/studentNavbar.html');
-            });
+            sessionStorage.setItem("role", "student");
+            window.location.href = 'studentNavbar.html';
+            history.pushState(null, null, 'studentNavbar.html');
+            window.onpopstate = function () {
+                history.go(1);
+            };
         } 
     } catch (error) {
         console.error('Error during face recognition:', error);

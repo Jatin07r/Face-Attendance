@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch("http://localhost:3000/fetchAdminView", {
+        const response = await fetch("/fetchAdminView", {
             method: "GET",
             withCredentials: true
         });

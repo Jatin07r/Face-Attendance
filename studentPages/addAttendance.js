@@ -36,7 +36,7 @@ async function addAttendance() {
         const descriptor = Array.from(detection.descriptor);
 
         // Send face descriptor to the server for verification
-        const response = await fetch('http://localhost:3000/sflogin', {
+        const response = await fetch('/sflogin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ student_face: descriptor })
@@ -63,7 +63,7 @@ async function addAttendance() {
             const now = new Date();
             const dateTime = now.toISOString().slice(0, 19).replace('T', ' ');
 
-            const add = await fetch('http://localhost:3000/add', {
+            const add = await fetch('/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
