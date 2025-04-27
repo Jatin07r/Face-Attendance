@@ -22,7 +22,7 @@ async function verifyFace() {
 
         const descriptor = Array.from(detection.descriptor);
 
-        const response = await fetch('http://localhost:3000/sflogin', {
+        const response = await fetch('/sflogin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ student_face: descriptor }) 

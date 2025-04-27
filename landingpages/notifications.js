@@ -30,7 +30,7 @@ function showToast(message, type = "primary") {
     container.appendChild(toast);
   
     // Show the toast
-    const toastInstance = new bootstrap.Toast(toast, { delay: 2000 });
+    const toastInstance = new bootstrap.Toast(toast, { delay: 5000 });
     toastInstance.show();
   
     // Remove the toast from DOM after it hides

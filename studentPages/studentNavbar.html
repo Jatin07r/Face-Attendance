@@ -56,13 +56,6 @@
       showToast("You have logged in successfully", "primary");
       sessionStorage.removeItem("loginSuccess");
     }
-    
-    if (sessionStorage.getItem("addSuccess") === "true") {
-      loadContent('studentView.html').then(() => {
-        showToast("Attendance added successfully", "primary");
-        sessionStorage.removeItem("addSuccess");
-      });
-    }
     </script>
 </body>
 

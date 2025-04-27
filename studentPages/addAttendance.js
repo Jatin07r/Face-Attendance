@@ -61,7 +61,9 @@ async function addAttendance() {
             // Prepare data for adding attendance
             const subjectName = subName.value.trim().toLowerCase();
             const now = new Date();
-            const dateTime = now.toISOString().slice(0, 19).replace('T', ' ');
+            const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            const dateTime = `${date} ${time}`;
 
             const add = await fetch('/add', {
                 method: 'POST',
@@ -80,7 +82,12 @@ async function addAttendance() {
                 incorrectSubName.textContent = '*Incorrect Subject Name';
                 incorrectSubName.className = 'form-label text-danger';
             } else if (addResult.success) {
-                sessionStorage.setItem('addSuccess', 'true');
+                showToast('Attendance added successfully','primary')
+                subName.value = '';
+                incorrectSubName.className = 'd-none';
+                ins.className = 'd-none';
+                invalidStudentSf.className = 'd-none';
+                databaseError.className = 'd-none';
             }
         }
     } catch (error) {

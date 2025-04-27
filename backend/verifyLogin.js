@@ -89,7 +89,6 @@ router.post('/sflogin', (req, res) => {
             results.forEach(row => {
                 let storedDescriptor;
                   if (!row.student_face) {
-                    console.error('Invalid or missing student_face data for student_id:', row.student_id);
                     return; 
                 }
 
@@ -110,7 +109,6 @@ router.post('/sflogin', (req, res) => {
                 const distance = euclideanDistance(student_face, storedDescriptor);
 
                 if (distance < bestMatch.distance) {
-                    req.session.userId = student_id;
                     bestMatch = { id: row.student_id, distance };
                     noFaceFound = false; 
                 }
@@ -127,10 +125,10 @@ router.post('/sflogin', (req, res) => {
             if (bestMatch.distance < 0.5) {
                 req.session.userId = bestMatch.id;
                 res.setHeader('Cache-Control', 'no-store');
-                res.json({ success: true, message: 'Verification successful'});
+                res.json({ success: true, message: 'Verification successful', student_id: bestMatch.id});
                 return
         } else {
-                return res.json({ success: false, error: 'No matching face found' });
+                return res.json({ success: false, error: 'No matching face found'});
             }
         } catch (error) {
             console.error('Error during face matching:', error);

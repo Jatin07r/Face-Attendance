@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       content.innerHTML = html;
       setTimeout(() => { scriptToLoad(url); }, 50);
 
+      //Camera initilized
       if (url === "login/sfLogin.html" || url === "addAttendance.html") {
         startCamera();
       }
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  //Stop the camera 
+  //Provoke's camera permission 
   function stopCamera() {
     if (cameraStream) {
       cameraStream.getTracks().forEach(track => track.stop());
@@ -107,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "adminView.html": ["adminView.js"],
       "downloadAttendance.html": ["downloadAttendance.js"],
       "studentView.html": ["studentView.js"],
-      "addAttendance.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "addAttendance.js", "/landingpages/login/faceApi.js"]
+      "addAttendance.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "addAttendance.js", "login/faceApi.js"]
     }
     document.querySelectorAll("script[data-dynamic='true']").forEach(script => script.remove());
 
