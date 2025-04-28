@@ -1,5 +1,5 @@
 function authCheck(redirectPage) {
-    if (!sessionStorage.getItem("loginSuccess")) {
+    if (localStorage.getItem("loginSuccess") !== "true") {
       window.location.href = redirectPage;
     }
   }
