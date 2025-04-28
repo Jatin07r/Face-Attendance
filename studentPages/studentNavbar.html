@@ -52,9 +52,9 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     authCheck("homeNavbar.html");
-    if (sessionStorage.getItem("loginSuccess") === "true") {
+    if (localStorage.getItem("loginSuccess") === "true") {
       showToast("You have logged in successfully", "primary");
-      sessionStorage.removeItem("loginSuccess");
+      localStorage.removeItem("loginSuccess");
     }
     </script>
 </body>

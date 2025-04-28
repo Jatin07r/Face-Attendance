@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
   logout.addEventListener('click', () => {
     localStorage.removeItem("loginSuccess");
     localStorage.removeItem("role");
-    sessionStorage.setItem("logoutSuccess", "true");
+    localStorage.setItem("logoutSuccess", "true");
     window.location.href = "homeNavbar.html";
 
     history.pushState(null, null, "homeNavbar.html");

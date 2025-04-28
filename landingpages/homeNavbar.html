@@ -44,9 +44,9 @@
   <script src="home.js"></script>
   <script src="notifications.js"></script>
   <script>
-    if (sessionStorage.getItem("logoutSuccess") === "true") {
+    if (localStorage.getItem("logoutSuccess") === "true") {
       showToast("You have logged out successfully", "primary");
-      sessionStorage.removeItem("logoutSuccess");
+      localStorage.removeItem("logoutSuccess");
     }
     </script>
 </body>
