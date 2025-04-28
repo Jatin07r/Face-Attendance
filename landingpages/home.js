@@ -86,9 +86,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //Load the initial page
-  if(sessionStorage.getItem("role") === "admin"){
+  if(localStorage.getItem("role") === "admin"){
     loadContent("admin.html");
-  } else if(sessionStorage.getItem("role") === "student"){
+  } else if(localStorage.getItem("role") === "student"){
     loadContent("student.html");
   } else 
   loadContent("dashboard.html");
@@ -200,8 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
   //Logout
   const logout = document.querySelector('#logout');
   logout.addEventListener('click', () => {
-    sessionStorage.removeItem("loginSuccess");
-    sessionStorage.removeItem("role");
+    localStorage.removeItem("loginSuccess");
+    localStorage.removeItem("role");
     sessionStorage.setItem("logoutSuccess", "true");
     window.location.href = "homeNavbar.html";
 

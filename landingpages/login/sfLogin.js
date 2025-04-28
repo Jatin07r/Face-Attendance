@@ -46,8 +46,8 @@ async function verifyFace() {
             databaseError.className = 'd-block text-center text-primary';
         }
         else if (result.success) { 
-            sessionStorage.setItem('loginSuccess', 'true'); 
-            sessionStorage.setItem("role", "student");
+            localStorage.setItem('loginSuccess', 'true'); 
+            localStorage.setItem("role", "student");
             window.location.href = 'studentNavbar.html';
             history.pushState(null, null, 'studentNavbar.html');
             window.onpopstate = function () {

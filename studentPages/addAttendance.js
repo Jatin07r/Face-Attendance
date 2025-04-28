@@ -3,7 +3,7 @@ async function addAttendance() {
     const video = document.querySelector('#sf');
     const addButton = document.querySelector('#add');
     const subName = document.querySelector('#sub-name');
-    const incorrectSubName = document.querySelector('#incorrect-sub-name');
+    const subInput = document.querySelector('#sub-input');
     const invalidStudentSf = document.querySelector('#invalid-sf');
     const ins = document.querySelector('#instructions');
     const databaseError = document.querySelector('#database-error');
@@ -15,20 +15,18 @@ async function addAttendance() {
             .withFaceDescriptor();
 
             // Validate subject name input
-            if (subName.value.trim() === '') {
-                incorrectSubName.textContent = '*Enter Subject Name';
-                incorrectSubName.className = 'form-label text-danger';
-                addButton.disabled = false;
+            if (subInput.value.trim() === '') {
+                subName.textContent = '*Enter Subject Name';
+                subName.className = 'form-label text-danger';
                 return;
             } else {
-                incorrectSubName.className = 'd-none';
+                subName.className = 'd-none';
             }
 
         if (!detection) {
             ins.className = 'd-block text-danger';
             databaseError.className = 'd-none';
             invalidStudentSf.className = 'd-none';
-            addButton.disabled = false;
             return;
         }
 
@@ -59,7 +57,7 @@ async function addAttendance() {
             ins.className = 'd-none';
         } else if (result.success) {
             // Prepare data for adding attendance
-            const subjectName = subName.value.trim().toLowerCase();
+            const subjectName = subInput.value.trim().toLowerCase();
             const now = new Date();
             const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
             const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
@@ -79,14 +77,16 @@ async function addAttendance() {
             const addResult = await add.json();
 
             if (!addResult.success && addResult.error === 'Incorrect subject name') {
-                incorrectSubName.textContent = '*Incorrect Subject Name';
-                incorrectSubName.className = 'form-label text-danger';
+                subName.textContent = '*Incorrect Subject Name';
+                subName.className = 'form-label text-danger';
             } else if (addResult.success) {
                 showToast('Attendance added successfully','primary')
-                subName.value = '';
-                incorrectSubName.className = 'd-none';
+                subInput.value = '';
+                subName.textContent = 'Subject Name';
+                subName.className = 'form-label]';
+                invalidStudentSf.textContent = 'Put face inside the circle';
+                invalidStudentSf.className = 'form-label';
                 ins.className = 'd-none';
-                invalidStudentSf.className = 'd-none';
                 databaseError.className = 'd-none';
             }
         }
