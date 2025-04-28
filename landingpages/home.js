@@ -88,8 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //Load the initial page
   if(sessionStorage.getItem("role") === "admin"){
     loadContent("admin.html");
+    sessionStorage.removeItem("role");
   } else if(sessionStorage.getItem("role") === "student"){
     loadContent("student.html");
+    sessionStorage.removeItem("role");
   } else 
   loadContent("dashboard.html");
   
