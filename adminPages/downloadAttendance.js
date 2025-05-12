@@ -14,7 +14,7 @@ async function fetchData() {
 function displayData(data) {
     const downloadAttendance = document.querySelector("#download-attendance");
     downloadAttendance.innerHTML = "";
-    
+
     if (!data || data.length === 0) {
         downloadAttendance.innerHTML = `
             <p class="mt-5 text-center fs-5">*No attendance data available.</p>
@@ -51,7 +51,7 @@ function displayData(data) {
     downloadAttendance.appendChild(tbody);
 }
 
- function filterButton() {
+function filterButton() {
     const studentId = document.querySelector("#student-id");
     const studentName = document.querySelector("#student-name");
     const classSem = document.querySelector("#class-sem");
@@ -95,20 +95,52 @@ function displayData(data) {
     filterCollapse.hide();
 };
 
+function applyDefaultTableStyle(table) {
+    table.style.borderCollapse = "collapse";
+    table.style.width = "100%";
+    table.style.textAlign = "left";
+
+    const cells = table.querySelectorAll("th, td");
+    cells.forEach(cell => {
+        cell.style.border = "1px solid black";
+        cell.style.padding = "8px";
+    });
+}
+
 function download() {
-    const downloadAtt = document.getElementById('download-wrapper');
-  
+    const originalTable = document.getElementById("download-attendance");
+
+    // Clone the table and apply default table styles
+    const clonedTable = originalTable.cloneNode(true);
+    applyDefaultTableStyle(clonedTable);
+
+    const tempContainer = document.createElement("div");
+    tempContainer.style.display = "none";
+    tempContainer.appendChild(clonedTable);
+    document.body.appendChild(tempContainer);
+
     const opt = {
-      margin:       0.5,
-      filename:     'attendance-report.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        margin: 0.5,
+        filename: "attendance-report.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" }
     };
-  
-    html2pdf().set(opt).from(downloadAtt).save();
-  };
-  
+
+    // Generate the PDF
+    html2pdf()
+        .set(opt)
+        .from(clonedTable)
+        .save()
+        .then(() => {
+            document.body.removeChild(tempContainer);
+        })
+        .catch(error => {
+            console.error("Error generating PDF:", error);
+            document.body.removeChild(tempContainer);
+        });
+};
+
 setTimeout(() => {
     fetchData();
 }, 100);

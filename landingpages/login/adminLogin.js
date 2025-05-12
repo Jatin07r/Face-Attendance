@@ -33,11 +33,11 @@ login.addEventListener('submit', async function (event) {
             databaseError.className = 'd-block text-center text-primary';
         }
         else if (result.success) {
-            localStorage.setItem("loginSuccess", "true");
-            localStorage.setItem("role", "admin");
+            localStorage.setItem('loginSuccess', 'true');
+            localStorage.setItem('role', 'admin');
             window.location.href = 'adminNavbar.html';
 
-            history.pushState(null, null, "adminNavbar.html");
+            history.pushState(null, null, 'adminNavbar.html');
             window.onpopstate = function () {
                 history.go(1);
             };

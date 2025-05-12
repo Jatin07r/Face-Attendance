@@ -31,17 +31,18 @@
             <a class="nav-link rounded-pill" href="addAttendance.html">Add Attendance</a>
           </li>
           <li class="nav-item">
-            <a id="logout" class="nav-link rounded-pill align-self-end">Log out</a>
+            <button id="logout" onclick="logout()" class="nav-link rounded-pill align-self-end">Log out</button>
           </li>
         </ul>
       </div>
       <div class="navbar-brand">
-        <h5 class="navbar-brand me-0">Student <i class="bi bi-person-fill px-2 p-1 bg-secondary-subtle rounded-circle"></i>
+        <h5 class="navbar-brand me-0">Student <i
+            class="bi bi-person-fill px-2 p-1 bg-secondary-subtle rounded-circle"></i>
         </h5>
       </div>
     </div>
   </nav>
-<div id="content"></div>
+  <div id="content"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/scrollreveal"></script>
@@ -56,7 +57,28 @@
       showToast("You have logged in successfully", "primary");
       localStorage.removeItem("loginSuccess");
     }
-    </script>
+
+    //Logout
+    function logout() {
+      fetch("/logout", {
+        method: "GET",
+        credentials: "include"
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error("Logout failed");
+        }
+        localStorage.clear();
+        window.location.href = "homeNavbar.html";
+
+        history.pushState(null, null, 'homeNavbar.html');
+            window.onpopstate = function () {
+                history.go(1);
+            };
+      }).catch(err => {
+        console.error("Logout error:", err);
+      });
+    }
+  </script>
 </body>
 
 </html>

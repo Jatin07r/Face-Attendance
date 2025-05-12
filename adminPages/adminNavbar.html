@@ -22,7 +22,7 @@
       <div class="collapse navbar-collapse bg-light" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 bg-light">
           <li class="nav-item">
-            <a class="nav-link rounded-pill" aria-current="page" href="admin.html">Dashboard</a>
+            <a class="nav-link rounded-pill active" aria-current="page" href="admin.html">Dashboard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link rounded-pill" href="adminView.html">View Attendance</a>
@@ -31,32 +31,55 @@
             <a class="nav-link rounded-pill" href="downloadAttendance.html">Download Attendance</a>
           </li>
           <li class="nav-item">
-            <a id="logout" class="nav-link rounded-pill align-self-end">Log out</a>
+            <button id="logout" onclick="logout()" class="nav-link rounded-pill align-self-end">Log out</button>
           </li>
         </ul>
       </div>
       <div class="navbar-brand">
-        <h5 class="navbar-brand me-0">Administrative <i class="bi bi-person-fill px-2 p-1 bg-secondary-subtle rounded-circle"></i></h5>
+        <h5 class="navbar-brand me-0">Administrative <i
+            class="bi bi-person-fill px-2 p-1 bg-secondary-subtle rounded-circle"></i></h5>
       </div>
     </div>
   </nav>
-<div id="content"></div>
+  <div id="content"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/scrollreveal"></script>
-  
-  <script src="home.js"></script>  
+
+  <script src="home.js"></script>
   <script src="notifications.js"></script>
   <script src="auth.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
-  authCheck("homeNavbar.html");
+    authCheck("homeNavbar.html");
 
-  if (localStorage.getItem("loginSuccess") === "true") {
-    showToast("You have logged in successfully", "primary");
-    localStorage.removeItem("loginSuccess");
-  }
+    if (localStorage.getItem("loginSuccess") === "true") {
+      showToast("You have logged in successfully", "primary");
+      localStorage.removeItem("loginSuccess");
+    }
+
+    // Logout
+    function logout() {
+      fetch("/logout", {
+        method: "GET",
+        credentials: "include"
+      }).then((response) => {
+        if (!response.ok) {
+          throw new Error("Logout failed");
+        }
+        localStorage.clear();
+        window.location.href = "homeNavbar.html";   
+
+        history.pushState(null, null, 'homeNavbar.html');
+            window.onpopstate = function () {
+                history.go(1);
+            };    
+      }).catch(err => {
+        console.error("Logout error:", err);
+      });
+    }
+
   </script>
 </body>
 

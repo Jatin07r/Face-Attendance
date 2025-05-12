@@ -88,8 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
   //Load the initial page
   if(localStorage.getItem("role") === "admin"){
     loadContent("admin.html");
+    localStorage.removeItem("role");
   } else if(localStorage.getItem("role") === "student"){
     loadContent("student.html");
+    localStorage.removeItem("role");
   } else 
   loadContent("dashboard.html");
   
@@ -106,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "admin.html": ["admin.js"],
       "student.html": ["student.js"],
       "adminView.html": ["adminView.js"],
-      "downloadAttendance.html": ["downloadAttendance.js"],
+      "downloadAttendance.html": ["downloadAttendance.js", "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"],
       "studentView.html": ["studentView.js"],
       "addAttendance.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "addAttendance.js", "login/faceApi.js"]
     }
@@ -195,19 +197,5 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       navbar.classList.remove("navbar-blur");
     }
-  });
-
-  //Logout
-  const logout = document.querySelector('#logout');
-  logout.addEventListener('click', () => {
-    localStorage.removeItem("loginSuccess");
-    localStorage.removeItem("role");
-    localStorage.setItem("logoutSuccess", "true");
-    window.location.href = "homeNavbar.html";
-
-    history.pushState(null, null, "homeNavbar.html");
-    window.onpopstate = function () {
-      history.go(1);
-  };
   });
 });

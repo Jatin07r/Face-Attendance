@@ -9,17 +9,14 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(cors({
-  origin: 'http://127.0.0.1:5500',
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 //Session Store
 const db = mysql.createConnection(config);
 const sessionStore = new MySQLStore(config, db);
 app.use(session({
-  key : 'LoginDetails',
+  key : 'Cookies',
   secret: 'ThisIsYourUserID',
   store: sessionStore,
   resave: false,
