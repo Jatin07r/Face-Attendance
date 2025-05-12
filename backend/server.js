@@ -1,8 +1,8 @@
 const express = require('express');
-const mysql = require('mysql2');
-const config = require('./dbConfig');
+const router = require('./router');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
+const db = require('./db');
 const cors = require('cors');
 const path = require('path');
 
@@ -13,15 +13,19 @@ app.use(cors());
 app.use(express.json());
 
 //Session Store
-const db = mysql.createConnection(config);
-const sessionStore = new MySQLStore(config, db);
+const sessionStore = new MySQLStore({}, db);
+app.set('trust proxy', 1);
 app.use(session({
-  key : 'Cookies',
-  secret: 'ThisIsYourUserID',
+  key : 'connect.sid',
+  secret: process.env.SESSION_SECRET || 'ThisIsYourSessionID',
   store: sessionStore,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 2 * 60 * 60 * 1000, secure: false}
+  cookie: { 
+    maxAge: 2 * 60 * 60 * 1000, secure: false, 
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  }
 }));
 
 app.use(express.static(path.join(__dirname, '../landingpages')));
@@ -45,5 +49,3 @@ app.get('/student', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
-
-module.exports = app;

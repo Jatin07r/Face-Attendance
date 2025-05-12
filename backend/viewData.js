@@ -1,17 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2');
-const config = require('./dbConfig');
 const router = express.Router();
-
-//Database Connection
-const db = mysql.createConnection(config);
-db.connect(err => {
-    if (err) {
-        console.error('Database connection failed: ' + err.stack);
-        return;
-    }
-    console.log('View database');
-});
+const db = require('./db');
 
 // GET route to fetch admin data
 router.get('/fetchAdminView', (req, res) => {

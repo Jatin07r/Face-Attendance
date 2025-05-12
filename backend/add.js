@@ -1,17 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2');
-const config = require('./dbConfig');
 const router = express.Router();
-
-//Database Connection
-const db = mysql.createConnection(config);
-db.connect(err => {
-    if (err) {
-        console.error('Database connection failed: ' + err.stack);
-        return;
-    }
-    console.log('Add attendance database');
-});
+const db = require('./db');
 
 router.post('/add', (req, res) => {
     const { student_id, subject_name, date_time, status } = req.body;

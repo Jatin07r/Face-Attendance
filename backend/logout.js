@@ -7,7 +7,7 @@ router.get("/logout", (req, res) => {
         console.error("Error destroying session:", err);
         return res.status(500).send("Logout failed");
       }
-      res.clearCookie("Cookies");
+      res.clearCookie("connect.sid");
       res.status(200).send("Logged out successfully");
     });
 });
