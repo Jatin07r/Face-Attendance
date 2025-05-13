@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express();
+const server = require('./server');
 const loginRoute = require('./verifyLogin');
 const fetchAdminRoute = require('./fetchAdminData');
 const fetchStudentRoute = require('./fetchStudentData');
@@ -9,24 +8,22 @@ const add = require('./add');
 const logout = require('./logout');
 
 //Login check
-router.use('/', loginRoute);
+server.use('/', loginRoute);
 
 //Fetch Admin Data
-router.use('/',fetchAdminRoute);
+server.use('/',fetchAdminRoute);
 
 //Fetch Student Data
-router.use('/',fetchStudentRoute);
+server.use('/',fetchStudentRoute);
 
 //View Data
-router.use('/',viewRoute);
+server.use('/',viewRoute);
 
 //Download Attendance
-router.use('/',download);
+server.use('/',download);
 
 //Add Attendance
-router.use('/',add);
+server.use('/',add);
 
 //Logout
-router.use('/',logout);
-
-module.exports = router;
+server.use('/',logout);

@@ -1,5 +1,4 @@
 const express = require('express');
-const router = require('./router');
 const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 const db = require('./db');
@@ -49,3 +48,5 @@ app.get('/student', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
+module.exports = app;

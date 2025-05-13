@@ -4,8 +4,8 @@
   "description": "Attendance System via Face Recognition",
   "main": "homeNavbar.html",
   "scripts": {
-    "start": "node backend/server.js",
-    "facemark": "nodemon backend/server.js",
+    "start": "node backend/router.js",
+    "facemark": "nodemon backend/router.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
