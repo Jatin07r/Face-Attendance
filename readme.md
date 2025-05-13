@@ -19,30 +19,6 @@ The **Face Attendance System** is a web-based application designed to manage att
 
 ---
 
-## 📁 Project Structure
-
-```
-project/
-├── frontend/
-│   ├── index.html
-│   ├── login.html
-│   ├── dashboard.html
-│   └── js/
-│       ├── face-api.js
-│       └── app.js
-│
-├── backend/
-│   ├── server.js
-│   ├── login.js
-│   └── db.js
-│
-├── mysql/
-│   └── database-schema.sql
-└── README.md
-```
-
----
-
 ## 🧰 Technologies Used
 
 ### 💻 Frontend
