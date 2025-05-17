@@ -23,7 +23,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: { 
-    maxAge: 0, secure: false, 
+    maxAge: 2 * 60 * 60 * 1000, secure: false, 
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict'
   }
@@ -37,14 +37,6 @@ app.use(express.static(path.join(__dirname, '../models')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../landingpages/homeNavbar.html'));
-});
-
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, '../adminpages/adminNavbar.html'));
-});
-
-app.get('/student', (req, res) => {
-  res.sendFile(path.join(__dirname, '../studentpages/studentNavbar.html'));
 });
 
 app.listen(port, () => {

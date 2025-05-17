@@ -35,9 +35,9 @@ login.addEventListener('submit', async function (event) {
         else if (result.success) {
             localStorage.setItem('loginSuccess', 'true');
             localStorage.setItem('role', 'admin');
-            window.location.href = '/adminpages/adminNavbar.html';
+            window.location.href = 'adminpages/adminNavbar.html';
 
-            history.pushState(null, null, '/adminpages/adminNavbar.html');
+            history.pushState(null, null, 'adminpages/adminNavbar.html');
             window.onpopstate = function () {
                 history.go(1);
             };
