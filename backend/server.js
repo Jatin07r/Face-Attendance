@@ -39,11 +39,11 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../landingpages/homeNavbar.html'));
 });
 
-app.get('/admin', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../adminpages/adminNavbar.html'));
 });
 
-app.get('/student', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../studentpages/studentNavbar.html'));
 });
 
