@@ -1,6 +1,6 @@
 async function fetchData() {
   try {
-    const response = await fetch("/fetchAdminDashboard", {
+    const response = await fetch(`${window.location.origin}/fetchAdminDashboard`, {
       method: "GET",
       credentials: 'include'
     });

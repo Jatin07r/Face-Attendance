@@ -1,7 +1,7 @@
 async function fetchData() {
     try {
-        const response = await fetch("/fetchAdminView", {
-            method: "GET",
+        const response = await fetch(`${window.location.origin}/fetchAdminView`, {
+        method: "GET",
             withCredentials: true
         });
         const result = await response.json();

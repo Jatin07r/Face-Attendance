@@ -34,7 +34,7 @@ async function addAttendance() {
         const descriptor = Array.from(detection.descriptor);
 
         // Send face descriptor to the server for verification
-        const response = await fetch('/sflogin', {
+        const response = await fetch(`${window.location.origin}/sflogin`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ student_face: descriptor })

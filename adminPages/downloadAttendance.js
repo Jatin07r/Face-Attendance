@@ -1,6 +1,6 @@
 async function fetchData() {
     try {
-        const response = await fetch("/downloadAttendance", {
+        const response = await fetch(`${window.location.origin}/downloadAttendance`, {
             method: "GET",
             withCredentials: true
         });
