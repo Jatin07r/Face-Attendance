@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, '../studentpages')));
 app.use(express.static(path.join(__dirname, '../errorpages')));
 app.use(express.static(path.join(__dirname, '../models')));
 
-app.get('/facemark', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../landingpages/homeNavbar.html'));
 });
 
