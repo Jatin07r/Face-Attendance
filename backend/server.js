@@ -30,8 +30,8 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, '../landingpages')));
-app.use(express.static(path.join(__dirname, '../adminpages')));
-app.use(express.static(path.join(__dirname, '../studentpages')));
+app.use(express.static(path.join(__dirname, '../adminPages')));
+app.use(express.static(path.join(__dirname, '../studentPages')));
 app.use(express.static(path.join(__dirname, '../errorpages')));
 app.use(express.static(path.join(__dirname, '../models')));
 
