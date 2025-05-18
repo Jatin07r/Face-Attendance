@@ -35,8 +35,8 @@ login.addEventListener('submit', async function (event) {
         else if (result.success) {
             localStorage.setItem('loginSuccess', 'true');
             localStorage.setItem("role", "student");
-            window.location.href = '/studentNavbar';
-            history.pushState(null, null, '/studentNavbar');
+            window.location.replace('/studentNavbar.html');
+
             window.onpopstate = function () {
                 history.go(1);
             };
