@@ -64,20 +64,53 @@ document.addEventListener("DOMContentLoaded", () => {
   
   document.querySelector(".nav-link").classList.add("active");
   document.body.classList.add("bg-light");
+  
+  //Camera initialization
+  function startCamera() {
+    const video = document.querySelector('#sf');
+    if (!video) {
+      console.error("Video element not found");
+      return;
+    }
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        cameraStream = stream;
+        video.srcObject = stream;
+        video.play();
+        faceApi();
+      })
+      .catch((err) => {
+        console.error("Camera initialization failed:", err);
+        if (err.name === "NotAllowedError") {
+          alert("Camera access denied. Please allow camera permissions.");
+        } else if (err.name === "NotFoundError") {
+          alert("No camera found on this device.");
+        }
+      });
+  }
+
+  //Provoke's camera permission 
+  function stopCamera() {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop());
+      cameraStream = null;
+    }
+  }
 
   //Add script tag in login pages
   function scriptToLoad(url) {
     const scriptsMap = {
       "login/adminLogin.html": ["login/adminLogin.js"],
       "login/sidLogin.html": ["login/sidLogin.js"],
-      "login/sfLogin.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "login/sfLogin.js", "login/faceApi.js"],
+      "login/sfLogin.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "login/sfLogin.js"],
       "dashboard.html": ["home.js"],
       "admin.html": ["admin.js"],
       "student.html": ["student.js"],
       "adminView.html": ["adminView.js"],
       "downloadAttendance.html": ["downloadAttendance.js", "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"],
       "studentView.html": ["studentView.js"],
-      "addAttendance.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "addAttendance.js", "login/faceApi.js"]
+      "addAttendance.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "addAttendance.js"]
     }
 
     document.querySelectorAll("script[data-dynamic='true']").forEach(script => script.remove());
@@ -90,38 +123,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-    //Camera initialization
-    function startCamera() {
-      const video = document.querySelector('#sf');
-      if (!video) {
-        console.error("Video element not found");
-        return;
-      }
-  
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-          cameraStream = stream;
-          video.srcObject = stream;
-          video.play();
-          faceApi();
-        })
-        .catch((err) => {
-          console.error("Camera initialization failed:", err);
-          if (err.name === "NotAllowedError") {
-            alert("Camera access denied. Please allow camera permissions.");
-          } else if (err.name === "NotFoundError") {
-            alert("No camera found on this device.");
-          }
-        });
-    }
-  
-    //Provoke's camera permission 
-    function stopCamera() {
-      if (cameraStream) {
-        cameraStream.getTracks().forEach(track => track.stop());
-        cameraStream = null;
-      }
-    }
 
   // Event listener for navbar clicks
   const navLinks = document.querySelectorAll(".nav-link");
@@ -199,3 +200,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+function faceApi() {
+    Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri('tiny_face_detector'),
+        faceapi.nets.faceLandmark68Net.loadFromUri('face_landmark_68'),
+        faceapi.nets.faceRecognitionNet.loadFromUri('face_recognition')
+    ])
+    .catch(err => {
+        console.error('Error loading Face recognition models:', err);
+        alert('Failed to load face recognition models. Please try again later.');
+    });
+}
