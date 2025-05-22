@@ -209,6 +209,6 @@ function faceApi() {
     ])
     .catch(err => {
         console.error("Error loading Face recognition models:", err);
-        showToast("Error loading Face recognition models","red");
+        showToast("Error loading Face recognition models","danger");
       });
 }
