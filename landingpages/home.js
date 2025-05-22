@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         history.pushState({ page: url }, "", `?page=${url}`);
       }
 
-      ScrollReveal().reveal('.animate', {
+      ScrollReveal().reveal(".animate", {
         duration: 500,
         origin: "bottom",
         distance: "50px",
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   //Camera initialization
   function startCamera() {
-    const video = document.querySelector('#sf');
+    const video = document.querySelector("#sf");
     if (!video) {
       console.error("Video element not found");
       return;
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  //Provoke's camera permission 
+  //Provoke"s camera permission 
   function stopCamera() {
     if (cameraStream) {
       cameraStream.getTracks().forEach(track => track.stop());
@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target.id === "loginButtons") {
       event.preventDefault();
       hp.classList.add("active");
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   });
 
@@ -203,12 +203,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function faceApi() {
     Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri('tiny_face_detector'),
-        faceapi.nets.faceLandmark68Net.loadFromUri('face_landmark_68'),
-        faceapi.nets.faceRecognitionNet.loadFromUri('face_recognition')
+        faceapi.nets.tinyFaceDetector.loadFromUri("/models/tiny_face_detector"),
+        faceapi.nets.faceLandmark68Net.loadFromUri("/models/face_landmark_68"),
+        faceapi.nets.faceRecognitionNet.loadFromUri("/models/face_recognition")
     ])
     .catch(err => {
-        console.error('Error loading Face recognition models:', err);
-        alert('Failed to load face recognition models. Please try again later.');
-    });
+        console.error("Error loading Face recognition models:", err);
+        showToast("Error loading Face recognition models","red");
+      });
 }

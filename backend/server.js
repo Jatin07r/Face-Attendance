@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, '../landingpages')));
 app.use(express.static(path.join(__dirname, '../adminPages')));
 app.use(express.static(path.join(__dirname, '../studentPages')));
 app.use(express.static(path.join(__dirname, '../errorPages')));
-app.use(express.static(path.join(__dirname, '../models')));
+app.use('/models',express.static(path.join(__dirname, '../models')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../landingpages/homeNavbar.html'));
