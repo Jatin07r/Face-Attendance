@@ -52,39 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  //Camera initialization
-  function startCamera() {
-    const video = document.querySelector('#sf');
-    if (!video) {
-      console.error("Video element not found");
-      return;
-    }
-
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then((stream) => {
-        cameraStream = stream;
-        video.srcObject = stream;
-        video.play();
-        faceApi();
-      })
-      .catch((err) => {
-        console.error("Camera initialization failed:", err);
-        if (err.name === "NotAllowedError") {
-          alert("Camera access denied. Please allow camera permissions.");
-        } else if (err.name === "NotFoundError") {
-          alert("No camera found on this device.");
-        }
-      });
-  }
-
-  //Provoke's camera permission 
-  function stopCamera() {
-    if (cameraStream) {
-      cameraStream.getTracks().forEach(track => track.stop());
-      cameraStream = null;
-    }
-  }
-
   //Load the initial page
   if(localStorage.getItem("role") === "admin"){
     loadContent("admin.html");
@@ -112,8 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "studentView.html": ["studentView.js"],
       "addAttendance.html": ["https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js", "addAttendance.js", "login/faceApi.js"]
     }
-    document.querySelectorAll("script[data-dynamic='true']").forEach(script => script.remove());
 
+    document.querySelectorAll("script[data-dynamic='true']").forEach(script => script.remove());
     const scriptsLoad = scriptsMap[url] || [];
     scriptsLoad.forEach(src => {
       const script = document.createElement("script");
@@ -122,6 +89,39 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.appendChild(script);
     });
   }
+
+    //Camera initialization
+    function startCamera() {
+      const video = document.querySelector('#sf');
+      if (!video) {
+        console.error("Video element not found");
+        return;
+      }
+  
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          cameraStream = stream;
+          video.srcObject = stream;
+          video.play();
+          faceApi();
+        })
+        .catch((err) => {
+          console.error("Camera initialization failed:", err);
+          if (err.name === "NotAllowedError") {
+            alert("Camera access denied. Please allow camera permissions.");
+          } else if (err.name === "NotFoundError") {
+            alert("No camera found on this device.");
+          }
+        });
+    }
+  
+    //Provoke's camera permission 
+    function stopCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+      }
+    }
 
   // Event listener for navbar clicks
   const navLinks = document.querySelectorAll(".nav-link");

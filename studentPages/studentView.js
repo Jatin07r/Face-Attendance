@@ -7,7 +7,7 @@ async function fetchData() {
         const result = await response.json();
         displayData(result);
     } catch (error) {
-        window.location.href = "/errorpages/500.html";
+        window.location.href = "/errorPages/500.html";
     }
 }
 

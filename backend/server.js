@@ -39,17 +39,14 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../landingpages/homeNavbar.html'));
 });
 
-app.get('/facemark', (req, res) => {
-  res.sendFile(path.join(__dirname, '../landingpages/homeNavbar.html'));
-});
-
 app.get('/adminNavbar.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../adminpages/adminNavbar.html'));
+    res.sendFile(path.join(__dirname, '../adminPages/adminNavbar.html'));
 });
 
 app.get('/studentNavbar.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../studentpages/studentNavbar.html'));
+    res.sendFile(path.join(__dirname, '../studentPages/studentNavbar.html'));
 });
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
