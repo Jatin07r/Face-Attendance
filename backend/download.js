@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('./db');
 
-// GET route to download attendance
 router.get('/downloadAttendance', (req, res) => {
     const query = `SELECT 
                     attendance.student_id, 

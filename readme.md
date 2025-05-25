@@ -35,30 +35,28 @@ The **Face Attendance System** is a web-based application designed to manage att
 
 ## 🚀 Installation & Setup
 
-### 1. Clone the Repository
+- 1. Clone the Repository
 ```bash
 git clone https://github.com/Jatin07r/Face-Attendance.git
 cd face-attendance
 ```
 
-### 2. Install Dependencies (Backend)
+- 2. Install Dependencies (Backend)
 ```bash
 cd backend
 npm install
 ```
 
-### 3. Start MySQL Server
+- 3. Start MySQL Server
 Ensure your MySQL Workbench is running and your schema is created.
 
-### 4. Start the Server
+- 4. Start the Server
 ```bash
 node backend/router.js
 ```
 
-### 5. Launch the Frontend with Live Server
-Open `landingpages/homeNavbar.html` in VS Code and right-click → **"Open with Live Server"**  
-Visit: `http://127.0.0.1:5500/`
-
+- 5.Open browser
+Visit: `http://127.0.0.1:3000/`
 ---
 
 ## 🧪 Usage

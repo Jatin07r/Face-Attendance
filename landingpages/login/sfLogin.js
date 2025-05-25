@@ -48,8 +48,8 @@ async function verifyFace() {
         else if (result.success) { 
             localStorage.setItem('loginSuccess', 'true'); 
             localStorage.setItem("role", "student");
-            window.location.href = '/studentNavbar.html';
-            history.pushState(null, null, '/studentNavbar.html');
+            window.location.href = '/student';
+            history.pushState(null, null, '/student');
             window.onpopstate = function () {
                 history.go(1);
             };

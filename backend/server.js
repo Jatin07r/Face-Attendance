@@ -32,18 +32,18 @@ app.use(session({
 app.use(express.static(path.join(__dirname, '../landingpages')));
 app.use(express.static(path.join(__dirname, '../adminPages')));
 app.use(express.static(path.join(__dirname, '../studentPages')));
-app.use(express.static(path.join(__dirname, '../errorPages')));
+app.use('/error',express.static(path.join(__dirname, '../errorPages')));
 app.use('/models',express.static(path.join(__dirname, '../models')));
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../landingpages/homeNavbar.html'));
 });
 
-app.get('/adminNavbar.html', (req, res) => {
+app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, '../adminPages/adminNavbar.html'));
 });
 
-app.get('/studentNavbar.html', (req, res) => {
+app.get('/student', (req, res) => {
     res.sendFile(path.join(__dirname, '../studentPages/studentNavbar.html'));
 });
 
